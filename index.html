@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Diary · 日记</title>
+<style>
+/* ============ 主题变量 ============ */
+:root{
+  --bg:#000; --panel:#16181c; --border:#2f3336; --text:#e7e9ea; --muted:#71767b;
+  --blue:#1d9bf0; --blue-dim:#1a8cd8; --pink:#f91880; --red:#f4212e; --green:#00ba7c;
+  --hover:rgba(255,255,255,.04); --input:#202327;
+}
+html[data-theme="light"]{
+  --bg:#fff; --panel:#f7f9f9; --border:#eff3f4; --text:#0f1419; --muted:#536471;
+  --hover:rgba(0,0,0,.035); --input:#eff3f4;
+}
+/* ============ 基础 ============ */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit;padding:0}
+input,textarea{font-family:inherit;font-size:inherit;color:inherit}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ============ 布局 ============ */
+.app{display:flex;justify-content:center;min-height:100vh}
+
+/*----左侧栏----*/
+.侧边栏{
+  宽度:275PX;弯曲:0 0 275PX;填充:8PX 12PX;
+  显示:弯曲;挠曲方向:柱;差距:4PX;
+  位置:粘性的;顶端:0;高度:100VH;
+}
+.标志{宽度:50PX;高度:50PX;显示:弯曲;对齐项目:中心;justify-content:中心;
+  边界半径:50%;颜色:var(--text);边缘:2PX 0 4PX;过渡:背景 .15s}
+.标志:盘旋{背景:var(--悬停)}
+.标志 SVG{宽度:28PX;高度:28PX}
+.导航项{
+  显示:弯曲;对齐项目:中心;差距:18PX;填充:12PX;
+  边界半径:9999PX;字体大小:19PX;颜色:var(--text);
+  过渡:背景 .15s;宽度:最大含量;最大宽度:100%;
+}
+.导航项:盘旋{背景:var(--悬停)}
+.导航项.活跃的{字体粗细:700}
+.导航项 SVG{宽度:24PX;高度:24PX;挠曲收缩:0}
+.导航标签{空白:noWrap}
+.compose-btn{
+  上边距:14PX;背景:var(--蓝色);颜色：#FFF；字体粗细:700;
+  字体大小:16PX;边界半径:9999PX;填充:15PX 32PX;宽度:100%;
+  显示:弯曲;对齐项目:中心;justify-content:中心;差距:8PX;
+  过渡:背景 .15s;箱形阴影:0 0 0 0 RGBA(29,155,240,.6);
+}
+.compose-btn:盘旋{背景:var(--蓝调)}
+.边杆-脚{上边距:自动;填充:12PX 0}
+.主题切换{显示:弯曲;对齐项目:中心;差距:12PX;填充:10PX 12PX;
+  边界半径:9999PX;字体大小:15PX;颜色:var(--已静音);宽度:100%;过渡:背景 .15s}
+.主题切换:盘旋{背景:var(--悬停)}
+
+/*----主区域----*/
+.主要的{
+  宽度:600PX;弯曲:0 0 600PX;最小高度:100VH;
+  左边框:1PX 固体 var(--边界);右边框:1PX 固体 var(--边界);
+}
+.顶栏{
+  位置:粘性的;顶端:0;Z指数:20;
+  背景:混色(在……内 sRGB,var(--bg) 82%,透明的);
+  背景滤光镜:模糊(12PX);-webkit-backdrop-filter:模糊(12PX);
+  下边框:1PX 固体 var(--边界);
+}
+.顶行{显示:弯曲;对齐项目:中心;justify-content:间距;填充:12PX 16PX;最小高度:53PX}
+.顶栏 H1{边缘:0;字体大小:20PX;字体粗细:800;线高:1.2}
+.顶栏 p{边缘:2PX 0 0;字体大小:13PX;颜色:var(--已静音);字体粗细:400}
+.icon-btn{
+  宽度:38PX;高度:38PX;边界半径:50%;显示:弯曲;对齐项目:中心;justify-content:中心;
+  颜色:var(--text);过渡:背景 .15s;挠曲收缩:0;字体大小:16PX;
+}
+.icon-btn:盘旋{背景:var(--悬停)}
+.icon-btn.SM{宽度:32PX;高度:32PX;字体大小:14PX}
+
+/* ---- 那年今日横幅 ---- */
+.otd-banner{
+  显示:弯曲;对齐项目:中心;差距:12PX;填充:14PX 16PX;光标:指针;
+  下边框:1PX 固体 var(--边界);
+  背景:线性梯度(90deg,RGBA(29,155,240,.12),RGBA(249,24,128,.08));
+  过渡:背景 .15s;
+}
+.otd-banner:盘旋{背景:线性梯度(90deg,RGBA(29,155,240,.2),RGBA(249,24,128,.14))}
+.otd表情符号{字体大小:24PX}
+.otd-banner 强大的{显示:块;字体大小:15PX}
+.otd-sub{字体大小:13PX;颜色:var(--已静音);上边距:1PX}
+.otd-箭头{左边距:自动;颜色:var(--已静音);字体大小:18PX}
+
+/* ---- 日期分隔 ---- */
+.日-九月,.年-九月{
+  display:flex;align-items:center;gap:10px;padding:14px 16px 8px;
+  font-size:13px;font-weight:700;color:var(--muted);
+}
+.day-sep .line{flex:1;height:1px;background:var(--border)}
+.day-sep .count{font-weight:400;font-size:12px}
+.year-sep{background:var(--panel);padding:10px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.year-sep em{margin-left:auto;font-style:normal;font-size:12px;color:var(--blue);font-weight:600}
+
+/* ---- 日记卡片 ---- */
+.entry{
+  display:flex;gap:12px;padding:14px 16px;
+  border-bottom:1px solid var(--border);transition:background .15s;
+}
+.entry:hover{background:var(--hover)}
+.avatar{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  background:var(--input);
+}
+.entry-body{flex:1;min-width:0}
+.entry-head{display:flex;align-items:center;gap:6px;font-size:15px;flex-wrap:wrap}
+.entry-name{font-weight:700}
+.entry-weather{font-size:14px}
+.entry-time{color:var(--muted);font-weight:400;font-size:14px}
+.entry-text{
+  margin-top:3px;white-space:pre-wrap;word-break:break-word;
+  font-size:15px;line-height:1.6;
+}
+.entry-text.clamp{display:-webkit-box;-webkit-line-clamp:8;-webkit-box-orient:vertical;overflow:hidden}
+.more-btn{color:var(--blue);font-size:14px;margin-top:4px;font-weight:500}
+.entry-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{color:var(--blue);font-size:14px}
+.tag:hover{text-decoration:underline}
+
+.image-grid{
+  display:grid;gap:3px;margin-top:10px;border-radius:16px;overflow:hidden;
+  border:1px solid var(--border);
+}
+.image-grid[data-count="1"]{grid-template-columns:1fr}
+.image-grid[data-count="2"]{grid-template-columns:1fr 1fr}
+.image-grid[data-count="3"]{grid-template-columns:1fr 1fr 1fr}
+.image-grid[data-count="4"]{grid-template-columns:1fr 1fr}
+.image-grid img{width:100%;height:100%;object-fit:cover;display:block;min-height:110px;max-height:300px}
+
+.entry-actions{display:flex;gap:4px;margin-top:10px;margin-left:-8px;color:var(--muted)}
+.act{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:9999px;
+  font-size:13px;transition:.15s;color:var(--muted)}
+.act svg{width:17px;height:17px}
+.act.fav:hover{color:var(--pink);background:rgba(249,24,128,.12)}
+.act.fav.on{color:var(--pink)}
+.act.edit:hover{color:var(--blue);background:rgba(29,155,240,.12)}
+.act.del:hover{color:var(--red);background:rgba(244,33,46,.12)}
+
+/* ---- 空状态 ---- */
+.empty{padding:60px 32px;text-align:center;color:var(--muted)}
+.empty-icon{font-size:44px;margin-bottom:12px}
+.empty h3{margin:0 0 6px;color:var(--text);font-size:19px}
+.empty p{margin:0 0 20px;font-size:14px;line-height:1.6}
+.btn-primary{background:var(--blue);color:#fff;font-weight:700;padding:11px 24px;
+  border-radius:9999px;font-size:15px;transition:background .15s}
+.btn-primary:hover{background:var(--blue-dim)}
+.empty-mini{padding:36px 16px;text-align:center;color:var(--muted);font-size:14px}
+
+/* ---- 日历 ---- */
+.cal-head{display:flex;align-items:center;justify-content:space-between;padding:16px}
+.cal-head strong{font-size:17px}
+.cal-week{display:grid;grid-template-columns:repeat(7,1fr);padding:0 8px 6px;text-align:center;
+  font-size:12px;color:var(--muted);font-weight:600}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:0 8px 16px}
+.cal-cell{
+  aspect-ratio:1;border-radius:12px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:3px;font-size:14px;
+  cursor:pointer;transition:background .15s;position:relative;
+}
+.cal-cell.empty{cursor:default}
+.cal-cell:not(.empty):hover{background:var(--hover)}
+.cal-cell.has{font-weight:700}
+.cal-cell.today{box-shadow:inset 0 0 0 1.5px var(--blue);color:var(--blue)}
+.cal-cell.sel{background:var(--blue);color:#fff}
+.cal-cell .dot{width:5px;height:5px;border-radius:50%;background:var(--blue)}
+.cal-cell.sel .dot{background:#fff}
+
+/* ---- 搜索 ---- */
+.search-wrap{padding:12px 16px;border-bottom:1px solid var(--border);position:sticky;top:53px;
+  background:var(--bg);z-index:15}
+.search-box{display:flex;align-items:center;gap:10px;background:var(--input);
+  border-radius:9999px;padding:10px 16px;border:1px solid transparent;transition:border-color .15s}
+.search-box:focus-within{border-color:var(--blue);background:transparent}
+.search-box svg{width:18px;height:18px;color:var(--muted);flex-shrink:0}
+.search-box input{flex:1;background:none;border:none;outline:none;font-size:15px;min-width:0}
+
+/* ---- 统计 ---- */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}
+.stat-card{background:var(--panel);border-radius:16px;padding:16px;border:1px solid var(--border)}
+.stat-card .num{font-size:26px;font-weight:800;line-height:1.2}
+.stat-card .lbl{font-size:13px;color:var(--muted);margin-top:2px}
+.mood-bars{padding:0 16px 24px}
+.mood-bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:14px}
+.mood-bar .name{width:64px;flex-shrink:0;color:var(--muted)}
+.mood-bar .track{flex:1;height:10px;background:var(--input);border-radius:9999px;overflow:hidden}
+.mood-bar .fill{height:100%;border-radius:9999px;transition:width .5s ease}
+.mood-bar .val{width:28px;text-align:right;color:var(--muted);font-size:13px}
+
+/* ---- 右侧栏 ---- */
+.rightbar{width:350px;flex:0 0 350px;padding:12px 24px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.card{background:var(--panel);border-radius:16px;padding:16px;margin-bottom:16px}
+.card h3{margin:0 0 12px;font-size:17px;font-weight:800}
+.stat-row{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;color:var(--muted)}
+.stat-row strong{color:var(--text)}
+.otd-mini{cursor:pointer;border-radius:12px;padding:10px;margin:-6px;transition:background .15s}
+.otd-mini:hover{background:var(--hover)}
+.otd-mini strong{font-size:14px}
+.otd-mini p{margin:4px 0 0;font-size:13px;color:var(--muted);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px}
+.tag-chip{background:var(--input);color:var(--blue);padding:5px 12px;border-radius:9999px;
+  font-size:13px;transition:.15s}
+.tag-chip:hover{background:rgba(29,155,240,.15)}
+.footer-links{color:var(--muted);font-size:12px;line-height:1.8;padding:0 8px}
+
+/* ---- 底部导航（移动端） ---- */
+.bottom-nav{
+  display:none;position:fixed;bottom:0;left:0;right:0;height:54px;
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-top:1px solid var(--border);z-index:60;
+  padding-bottom:env(safe-area-inset-bottom);
+  align-items:center;justify-content:space-around;
+}
+.bnav-item{display:flex;align-items:center;justify-content:center;width:56px;height:48px;
+  border-radius:9999px;color:var(--muted);transition:.15s}
+.bnav-item.active{color:var(--text)}
+.bnav-item svg{width:24px;height:24px}
+.bnav-compose{width:44px;height:44px;border-radius:50%;background:var(--blue);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:300}
+
+/* ---- 编辑弹窗 ---- */
+.modal-root{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
+  background:rgba(91,112,131,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.modal-root[hidden]{display:none}
+.composer-panel{
+  background:var(--bg);width:min(600px,100%);max-height:88vh;
+  border-radius:18px;display:flex;flex-direction:column;overflow:hidden;
+  border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5);
+  animation:pop .18s ease;
+}
+@keyframes pop{from{transform:scale(.96);opacity:.5}to{transform:scale(1);opacity:1}}
+.modal-head{display:flex;align-items:center;gap:12px;padding:10px 14px;
+  border-bottom:1px solid var(--border);flex-shrink:0}
+.modal-title{font-weight:700;font-size:16px;flex:1}
+.post-btn{background:var(--blue);color:#fff;font-weight:700;padding:8px 18px;
+  border-radius:9999px;font-size:15px;transition:.15s}
+.post-btn:disabled{opacity:.4;cursor:not-allowed}
+.post-btn:not(:disabled):hover{background:var(--blue-dim)}
+.composer-scroll{overflow-y:auto;flex:1;padding:14px 16px}
+.composer-row{display:flex;gap:12px}
+.composer-col{flex:1;min-width:0}
+.composer-input{
+  width:100%;background:none;border:none;outline:none;resize:none;
+  font-size:19px;line-height:1.5;min-height:100px;padding-top:6px;
+}
+.composer-input::placeholder{color:var(--muted)}
+.composer-tools{
+  display:flex;align-items:center;gap:4px;padding:10px 14px;
+  border-top:1px solid var(--border);flex-shrink:0;
+}
+.tool{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:18px;transition:.15s;color:var(--blue)}
+.tool:hover{background:rgba(29,155,240,.12)}
+.tool.active{background:rgba(29,155,240,.18)}
+.counter{margin-left:auto;font-size:13px;color:var(--muted);padding-right:6px}
+.tool-panel{padding:12px 14px;border-top:1px solid var(--border);flex-shrink:0;max-height:200px;overflow-y:auto}
+.mood-grid{display:flex;flex-wrap:wrap;gap:6px}
+.mood-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;
+  border-radius:12px;font-size:20px;transition:.15s;min-width:60px}
+.mood-btn small{font-size:11px;color:var(--muted)}
+.mood-btn:hover{background:var(--hover)}
+.mood-btn.active{background:rgba(29,155,240,.15);box-shadow:inset 0 0 0 1.5px var(--blue)}
+.mood-btn.active small{color:var(--blue)}
+.tag-input{width:100%;background:var(--input);border:none;outline:none;
+  border-radius:10px;padding:10px 14px;font-size:14px}
+.img-thumb{position:relative;aspect-ratio:1;overflow:hidden;background:var(--input)}
+.img-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.img-del{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:50%;
+  background:rgba(0,0,0,.75);color:#fff;font-size:13px;display:flex;
+  align-items:center;justify-content:center}
+
+/* ---- Toast ---- */
+.toast{
+  position:fixed;left:50%;bottom:80px;transform:translate(-50%,20px);
+  background:var(--blue);color:#fff;padding:11px 22px;border-radius:9999px;
+  font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:200;
+  white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ============ 响应式 ============ */
+@media(max-width:1280px){ .rightbar{display:none} }
+@media(max-width:1000px){
+  .sidebar{width:88px;flex:0 0 88px;align-items:center;padding:8px}
+  .nav-label,.compose-btn span{display:none}
+  .nav-item{gap:0;padding:12px}
+  .compose-btn{width:52px;height:52px;padding:0;border-radius:50%}
+  .sidebar-foot{width:100%}
+  .theme-toggle{justify-content:center;padding:12px}
+  .theme-toggle span{display:none}
+}
+@media(max-width:700px){
+  .sidebar{display:none}
+  .main{width:100%;flex:1 1 auto;border-left:none;border-right:none}
+  .底航{显示:弯曲}
+  身体{垫底:calc(54PX+env(安全区内底))}
+  .作曲家面板{边界半径:18PX 18PX 0 0;最大高度:92VH}
+  .模态根{对齐项目:柔性端}
+  .进入{填充:12PX 14PX}
+  .化身{宽度:40PX;高度:40PX;字体大小:18PX}
+}
+</风格>
+</头>
+<身体>
+
+<div 班级="应用程序">
+  <在一边 班级="侧边栏" 身份标识="侧边栏"></在一边>
+  <主要的 班级="主要" 身份标识="主要"></主要的>
+  <在一边 班级="右栏" 身份标识="右栏"></在一边>
+</div>
+
+<NAV 班级="底部导航" 身份标识="bottomNav"></NAV>
+<div 班级="modal-根" 身份标识="modalRoot" 隐藏的></div>
+<div 班级="吐司" 身份标识="吐司"></div>
+
+<脚本>
+/*=========================================================
+   常量
+=========================================================*/
+Const store_KEY='Diary_app_v1';
+
+Const 情绪=[
+  {身份标识:'Happy',   表情符号:'😄', 标签:'开心', 颜色:'#FFD400'},
+  {身份标识:'爱',    表情符号:'🥰', 标签:'幸福', 颜色:'#F91880'},
+  {身份标识:'平静',    表情符号:'😌', 标签:'平静', 颜色:'#00BA7C'},
+  {身份标识:'兴奋', 表情符号:'🤩', 标签:'兴奋', 颜色:'#7856FF'},
+  {身份标识:'累',   表情符号:'😮‍💨', 标签:'疲惫', 颜色:'#8B98A5'},
+  {身份标识:'sad',     表情符号:'😔', 标签:'难过', 颜色:'#1D9BF0'},
+  {身份标识:'愤怒',   表情符号:'😤', 标签:'生气', 颜色:'#FF7A00'},
+  {身份标识:'焦虑', 表情符号:'😰', 标签:'焦虑', 颜色:'#C084FC'},
+];
+Const weathers=[
+  {身份标识:'sunny',  表情符号:'☀️', 标签:'晴'},
+  {身份标识:'云', 表情符号:'⛅', 标签:'多云'},
+  {身份标识:'雨',   表情符号:'🌧️', 标签:'雨'},
+  {身份标识:'风暴',  表情符号:'⛈️', 标签:'雷雨'},
+  {身份标识:'雪',   表情符号:'❄️', 标签:'雪'},
+  {身份标识:'雾',    表情符号:'🌫️', 标签:'雾'},
+  {身份标识:'Wind',   表情符号:'🌬️', 标签:'大风'},
+];
+Const 视图=[
+  {身份标识:'时间线',  标签:'时间线',   图标:'Home'},
+  {身份标识:'otd',       标签:'那年今日', 图标:'时钟'},
+  {身份标识:'日历',  标签:'日历',     图标:'日历'},
+  {身份标识:'收藏夹', 标签:'收藏',     图标:'心脏'},
+  {身份标识:'搜索',    标签:'搜索',     图标:'搜索'},
+  {身份标识:'统计数据',     标签:'我的',     图标:'用户'},
+];
+Const 图标={
+  家:'<path d="M39.5123l96.5V20a1.515001-1.51.5h-15A1.515001320z"/><path d="M9 21.5v-8h6v8"/>',
+  时钟:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 1.9"/>',
+  日历:'<rect x="3"y="4.5"width="18"height="17"rx="2.5"/><path d="M82.5v4M162.5v4M310h18"/>',
+  心:'<path d="M20.85.1a5.45.4000-7.70L12 6.2l-1.1-1.1a5.45.4010-7.77.7l8.888.8-8.8a5.45.4000-7.7z"/>',
+  搜索:'<circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.3-4.3"/>',
+  用户:'<path d="M2021v-1.8a4.24200 0-4.2-4.2H8.2A4.242000419.2V21"/><circle cx="12"cy="7.5"r="4"/>',
+  羽毛:'<path d="M20.212.2a6600-8.5-8.5L510.5V19h8.5z"/><path d="M168222"/><path d="M17.515H9"/>',
+  星:'<路径d="m122.62.95.96.5.9-4.74.61.16.5-5.8-3-5.831.1-6.5L2.6 9.4l6.5-.9z"/>',
+  编辑:'<path d="M114H4.5A1.51.500035.5v14A1.51.50004.521h14a1.51.5000 1.5-1.5V13"/><path d="M18.4.2.6a22012.8L12 14.6l-3.5.7.7-3.5z"/>',
+  垃圾:'<path d="M36h18"/><path d="M86V4.5A1.5150019.5.3h5A1.515001164.5 V6"/><路径d="M196v13.5A1.51.500117.521h-11A1.51.5001519.5V6"/>',
+  图像:'<rect x="3"y="3"width="18"height="18"rx="2.5"/><circle cx="8.5"cy="8.5"r="1.8"/><路径d="M215.5-5-5L521"/>',
+  tag:'<path d="M20.613.412.421.6a1.61.60001-2.30l-8-8A1.61.600011.612l.4-9.4A1.61.600013.6.161h9.3a1.61.600011.2.5l77a1.61.6000102.3z"/><circle cx="7.5"cy="7.5"r="1.4"/>',
+  太阳:'<circle cx="12"cy="12"r="4.2"/><path d="M121.5v2.4M1220.1v2.4M4.2l1.71.7M18.118.1l1.71.7M1.512h2.4M20.112h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/>',
+  月亮:'<path d="M212.8A99011.123a770009.89.8z"/>',
+};
+功能 svgIcon(姓名, 大小=24){
+  返回 '<svg viewBox="002424"width="${大小}"高度="${大小}"fill="无"
+stroke="CURRENTCOLOR"stroke-width="2"stroke-linecap="round"stroke-linejoin="round">${图标[姓名]||''}</svg>';
+}
+
+/*=========================================================
+   状态
+=========================================================*/
+让 条目=[];
+让 用户界面={
+  观点: '时间线',
+  主题: '深色',
+  查询: '',
+  calCursor: 新的 日期(),
+  selectedDay: 无效的,
+};
+让 editingId=无效的;
+让 草案=无效的;
+
+/*=========================================================
+   工具函数
+=========================================================*/
+Const 垫=n=>线(n).padStart(2,'0');
+Const UID=()=>日期.现在().toString(36)+数学.随机().toString(36).片(2,7);
+Const dateKey=d=>`${d.getFullYear()}-${垫(d.getMonth()+1)}-${垫(d.GETDATE())}`;
+功能 ESC(s){
+  返回 线(s ?? '').取代(/[&<>"']/g, c=>(
+    {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]
+  ));
+}
+功能 timeAgo(ISO){
+  Const d=新的 日期(ISO);
+  Const diff=(日期.现在() - d.getTime()) / 1000;
+  如果 (diff<60) 返回 '刚刚';
+  如果 (diff<3600) 返回 `${数学.地板(diff/60)}分钟前`;
+  如果 (diff<86400) 返回 `${数学.地板(diff/3600)}小时前`;
+  如果 (diff<86400*7) 返回 `${数学.地板(diff/86400)}天前`;
+  返回 `${d.getMonth()+1}月${d.GETDATE()}日`;
+}
+功能 dayLabel(k){
+  Const [y,米,d]=k.分离('-').地图(数量);
+  Const DT=新的 日期(y, 米-1, d);
+  Const 现在=新的 日期();
+  const yest = new Date(now); yest.setDate(yest.getDate()-1);
+  if (k === dateKey(now)) return '今天';
+  if (k === dateKey(yest)) return '昨天';
+  const wk = '日一二三四五六'[dt.getDay()];
+  if (y === now.getFullYear()) return `${m}月${d}日 周${wk}`;
+  return `${y}年${m}月${d}日 周${wk}`;
+}
+
+/* =========================================================
+   存储
+   ========================================================= */
+function load(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if (raw){
+      const d = JSON.parse(raw);
+      entries = Array.isArray(d.entries) ? d.entries : [];
+      if (d.theme) ui.theme = d.theme;
+    }
+  }catch(err){ console.warn('读取失败', err); }
+}
+function save(){
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify({ entries, theme: ui.theme }));
+  }catch(err){
+    toast('本地存储空间不足，请删除部分带图片的日记');
+  }
+}
+
+/* =========================================================
+   Toast
+   ========================================================= */
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* =========================================================
+   计算类
+   ========================================================= */
+function getOnThisDay(){
+  const now = new Date();
+  const m = now.getMonth()+1, d = now.getDate(), y = now.getFullYear();
+  return entries.filter(e => {
+    const dt = new Date(e.createdAt);
+    return dt.getMonth()+1 === m && dt.getDate() === d && dt.getFullYear() !== y;
+  }).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+}
+function otdText(list){
+  const nowY = new Date().getFullYear();
+  const years = [...new Set(list.map(e => new Date(e.createdAt).getFullYear()))]
+    .sort((a,b) => b - a);
+  return `${years.map(y => (nowY - y) + '年前').join('、')}的今天，你写了 ${list.length} 篇日记`;
+}
+function calcStreak(){
+  const keys = new Set(entries.map(e => dateKey(new Date(e.createdAt))));
+  if (!keys.size) return 0;
+  let streak = 0;
+  const d = new Date();
+  if (!keys.has(dateKey(d))) d.setDate(d.getDate() - 1);
+  while (keys.has(dateKey(d))){ streak++; d.setDate(d.getDate() - 1); }
+  return streak;
+}
+function calcLongest(){
+  const days = [...new Set(entries.map(e => dateKey(new Date(e.createdAt))))].sort();
+  let best = 0, cur = 0, prev = null;
+  for (const k of days){
+    const d = new Date(k + 'T00:00:00');
+    if (prev && (d - prev) === 86400000) cur++; else cur = 1;
+    prev = d;
+    best = Math.max(best, cur);
+  }
+  return best;
+}
+
+/* =========================================================
+   渲染：侧边栏
+   ========================================================= */
+function renderSidebar(){
+  const el = document.getElementById('sidebar');
+  el.innerHTML = `
+    <div class="logo">${svgIcon('feather', 28)}</div>
+    ${VIEWS.map(v => `
+      <button class="nav-item ${ui.view===v.id?'active':''}" data-view="${v.id}">
+        ${svgIcon(v.icon)}<span class="nav-label">${v.label}</span>
+      </button>
+    `).join('')}
+    <button class="compose-btn" data-act="compose">
+      ${svgIcon('edit', 20)}<span>写日记</span>
+    </button>
+    <div class="sidebar-foot">
+      <button class="theme-toggle" data-act="theme">
+        ${svgIcon(ui.theme === 'dark' ? 'sun' : 'moon', 20)}
+        <span>${ui.theme === 'dark' ? '浅色模式' : '深色模式'}</span>
+      </button>
+    </div>
+  `;
+}
+
+/* =========================================================
+   渲染：底部导航（移动端）
+   ========================================================= */
+function renderBottomNav(){
+  const el = document.getElementById('bottomNav');
+  const items = [
+    {id:'timeline', icon:'home'},
+    {id:'otd',      icon:'clock'},
+    {id:'__compose'},
+    {id:'calendar', icon:'calendar'},
+    {id:'stats',    icon:'user'},
+  ];
+  el.innerHTML = items.map(it => {
+    if (it.id === '__compose'){
+      return `<button class="bnav-compose" data-act="compose">+</button>`;
+    }
+    return `<button class="bnav-item ${ui.view===it.id?'active':''}" data-view="${it.id}">
+      ${svgIcon(it.icon, 24)}
+    </button>`;
+  }).join('');
+}
+
+/* =========================================================
+   渲染：右侧栏
+   ========================================================= */
+function renderRightbar(){
+  const el = document.getElementById('rightbar');
+  const otd = getOnThisDay();
+  const tagCount = {};
+  entries.forEach(e => (e.tags||[]).forEach(t => tagCount[t] = (tagCount[t]||0)+1));
+  const topTags = Object.entries(tagCount).sort((a,b) => b[1]-a[1]).slice(0,8);
+
+  el.innerHTML = `
+    <div class="card" style="padding:10px 16px">
+      <div class="search-box" data-act="goto-search" style="cursor:text">
+        ${svgIcon('search', 18)}
+        <input placeholder="搜索日记内容或标签" readonly style="cursor:text">
+      </div>
+    </div>
+
+    ${otd.length ? `
+    <div class="card">
+      <h3>🕰️ 那年今日</h3>
+      <div class="otd-mini" data-view="otd">
+        <strong>${otdText(otd)}</strong>
+        <p>${esc(otd[0].content || '（图片日记）')}</p>
+      </div>
+    </div>` : ''}
+
+    <div class="card">
+      <h3>📊 写作统计</h3>
+      <div class="stat-row"><span>总篇数</span><strong>${entries.length}</strong></div>
+      <div class="stat-row"><span>连续天数</span><strong>${calcStreak()} 天</strong></div>
+      <div class="stat-row"><span>记录天数</span><strong>${new Set(entries.map(e=>dateKey(new Date(e.createdAt)))).size} 天</strong></div>
+    </div>
+
+    ${topTags.length ? `
+    <div class="card">
+      <h3>🏷️ 常用标签</h3>
+      <div class="tag-cloud">
+        ${topTags.map(([t,c]) => `<button class="tag-chip" data-act="tag-search" data-tag="${esc(t)}">#${esc(t)} · ${c}</button>`).join('')}
+      </div>
+    </div>` : ''}
+
+    <div class="footer-links">
+      数据保存在本机浏览器 · 共 ${entries.length} 篇<br>
+      Diary App · 记录每一个当下
+    </div>
+  `;
+}
+
+/* =========================================================
+   渲染：主区域
+   ========================================================= */
+function render(){
+  document.documentElement.dataset.theme = ui.theme;
+  renderSidebar();
+  renderBottomNav();
+  renderRightbar();
+  renderMain();
+}
+
+function renderMain(){
+  const main = document.getElementById('main');
+  const hadFocus = document.activeElement && document.activeElement.id === 'searchInput';
+  const selStart = hadFocus ? document.activeElement.selectionStart : null;
+
+  const views = {
+    timeline:  viewTimeline,
+    otd:       viewOTD,
+    calendar:  viewCalendar,
+    favorites: viewFavorites,
+    search:    viewSearch,
+    stats:     viewStats,
+  };
+  main.innerHTML = (views[ui.view] || viewTimeline)();
+
+  if (ui.view === 'search'){
+    const inp = document.getElementById('searchInput');
+    if (inp){
+      inp.value = ui.query;
+      if (hadFocus){
+        inp.focus();
+        try{ inp.setSelectionRange(selStart, selStart); }catch(e){}
+      }
+    }
+  }
+  window.scrollTo({ top: 0 });
+}
+
+function topbar(title, sub){
+  return `<header class="topbar">
+    <div class="topbar-row">
+      <div>
+        <h1>${title}</h1>
+        ${sub ? `<p>${sub}</p>` : ''}
+      </div>
+      <button class="icon-btn" data-act="theme" title="切换主题">
+        ${ui.theme === 'dark' ? '☀️' : '🌙'}
+      </button>
+    </div>
+  </header>`;
+}
+
+/* ---------- 时间线 ---------- */
+function viewTimeline(){
+  const list = entries.slice().sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const otd = getOnThisDay();
+
+  let html = topbar('时间线', entries.length ? `共 ${entries.length} 篇日记` : '');
+
+  if (otd.length){
+    html += `<div class="otd-banner" data-view="otd">
+      <span class="otd-emoji">🕰️</span>
+      <div>
+        <strong>那年今日</strong>
+        <div class="otd-sub">${otdText(otd)}</div>
+      </div>
+      <span class="otd-arrow">→</span>
+    </div>`;
+  }
+
+  if (!list.length){
+    return html + emptyState('还没有日记', '记录下此刻的心情，明年的今天它会重新回到你眼前 ✍️');
+  }
+
+  const groups = new Map();
+  for (const e of list){
+    const k = dateKey(new Date(e.createdAt));
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(e);
+  }
+
+  for (const [k, items] of groups){
+    html += `<div class="day-sep">
+      <span>${dayLabel(k)}</span>
+      <div class="line"></div>
+      <span class="count">${items.length} 篇</span>
+    </div>`;
+    html += items.map(entryCard).join('');
+  }
+  return html;
+}
+
+/* ---------- 那年今日 ---------- */
+function viewOTD(){
+  const list = getOnThisDay();
+  let html = topbar('那年今日', '同月同日，不同年份');
+
+  if (!list.length){
+    return html + emptyState('还没有往年今日的记录', '从今天开始写日记，明年的今天它就会出现在这里 📅');
+  }
+
+  const nowY = new Date().getFullYear();
+  const groups = new Map();
+  for (const e of list){
+    const y = new Date(e.createdAt).getFullYear();
+    if (!groups.has(y)) groups.set(y, []);
+    groups.get(y).push(e);
+  }
+
+  for (const [y, items] of [...groups.entries()].sort((a,b) => b[0] - a[0])){
+    html += `<div class="year-sep"><span>${y}年</span><em>${nowY - y} 年前</em></div>`;
+    html += items.map(entryCard).join('');
+  }
+  return html;
+}
+
+/* ---------- 收藏 ---------- */
+function viewFavorites(){
+  const list = entries
+    .filter(e => e.favorite)
+    .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  let html = topbar('收藏', list.length ? `${list.length} 篇` : '');
+  if (!list.length){
+    return html + emptyState('还没有收藏的日记', '点击日记右下角的心形图标即可收藏 ❤️');
+  }
+  return html + list.map(entryCard).join('');
+}
+
+/* ---------- 搜索 ---------- */
+function viewSearch(){
+  return `${topbar('搜索')}
+    <div class="search-wrap">
+      <div class="search-box">
+        ${svgIcon('search', 18)}
+        <input id="searchInput" placeholder="搜索日记内容或标签" autocomplete="off">
+      </div>
+    </div>
+    <div id="searchResults">${searchResultsHTML()}</div>`;
+}
+function searchResultsHTML(){
+  const q = ui.query.trim().toLowerCase();
+  if (!q) return `<div class="empty-mini">输入关键词开始搜索 🔍</div>`;
+  const list = entries.filter(e =>
+    (e.content || '').toLowerCase().includes(q) ||
+    (e.tags || []).some(t => t.toLowerCase().includes(q))
+  ).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  if (!list.length) return `<div class="empty-mini">没有找到相关日记</div>`;
+  return `<div class="day-sep"><span>找到 ${list.length} 篇</span><div class="line"></div></div>`
+    + list.map(entryCard).join('');
+}
+
+/* ---------- 日历 ---------- */
+function viewCalendar(){
+  const cur = ui.calCursor;
+  const y = cur.getFullYear(), m = cur.getMonth();
+  const startDow = new Date(y, m, 1).getDay();
+  const days = new Date(y, m+1, 0).getDate();
+
+  const counts = {};
+  entries.forEach(e => {
+    const k = dateKey(new Date(e.createdAt));
+    counts[k] = (counts[k] || 0) + 1;
+  });
+
+  let cells = '';
+  for (let i = 0; i < startDow; i++) cells += `<div class="cal-cell empty"></div>`;
+  for (let d = 1; d <= days; d++){
+    const k = `${y}-${pad(m+1)}-${pad(d)}`;
+    const c = counts[k] || 0;
+    const cls = [
+      'cal-cell',
+      c ? 'has' : '',
+      k === dateKey(new Date()) ? 'today' : '',
+      ui.selectedDay === k ? 'sel' : '',
+    ].filter(Boolean).join(' ');
+    cells += `<div class="${cls}" data-act="cal-day" data-day="${k}">
+      <span>${d}</span>${c ? '<i class="dot"></i>' : ''}
+    </div>`;
+  }
+
+  let html = topbar('日历', '点击日期查看当天日记');
+  html += `<div class="cal-head">
+    <button class="icon-btn" data-act="cal-prev">‹</button>
+    <strong>${y} 年 ${m+1} 月</strong>
+    <button class="icon-btn" data-act="cal-next">›</button>
+  </div>
+  <div class="cal-week">${['日','一','二','三','四','五','六'].map(d => `<span>${d}</span>`).join('')}</div>
+  <div class="cal-grid">${cells}</div>`;
+
+  if (ui.selectedDay){
+    const items = entries
+      .filter(e => dateKey(new Date(e.createdAt)) === ui.selectedDay)
+      .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+    html += `<div class="day-sep">
+      <span>${dayLabel(ui.selectedDay)}</span><div class="line"></div>
+      <span class="count">${items.length} 篇</span></div>`;
+    html += items.length
+      ? items.map(entryCard).join('')
+      : `<div class="empty-mini">这一天没有日记</div>`;
+  } else {
+    html += `<div class="empty-mini">点击上方日期查看当天日记</div>`;
+  }
+  return html;
+}
+
+/* ---------- 统计 ---------- */
+function viewStats(){
+  const total = entries.length;
+  const daysCount = new Set(entries.map(e => dateKey(new Date(e.createdAt)))).size;
+  const streak = calcStreak();
+  const longest = calcLongest();
+  const words = entries.reduce((s,e) => s + (e.content || '').length, 0);
+  const now = new Date();
+  const monthPrefix = `${now.getFullYear()}-${pad(now.getMonth()+1)}`;
+  const monthCount = entries.filter(e => dateKey(new Date(e.createdAt)).startsWith(monthPrefix)).length;
+  const imgCount = entries.reduce((s,e) => s + (e.images || []).length, 0);
+
+  const moodCount = {};
+  entries.forEach(e => { if (e.mood) moodCount[e.mood] = (moodCount[e.mood]||0) + 1; });
+  const moodTotal = Math.max(1, ...Object.values(moodCount));
+
+  let html = topbar('我的', '记录是一种生活方式');
+  html += `<div class="stat-grid">
+    <div class="stat-card"><div class="num">${total}</div><div class="lbl">总篇数</div></div>
+    <div class="stat-card"><div class="num">${daysCount}</div><div class="lbl">记录天数</div></div>
+    <div class="stat-card"><div class="num">${streak}<span style="font-size:14px"> 天</span></div><div class="lbl">当前连续</div></div>
+    <div class="stat-card"><div class="num">${longest}<span style="font-size:14px"> 天</span></div><div class="lbl">最长连续</div></div>
+    <div class="stat-card"><div class="num">${monthCount}</div><div class="lbl">本月记录</div></div>
+    <div class="stat-card"><div class="num">${words}</div><div class="lbl">累计字数</div></div>
+  </div>`;
+
+  if (Object.keys(moodCount).length){
+    html += `<div class="day-sep"><span>心情分布</span><div class="line"></div></div>
+      <div class="mood-bars">`;
+    MOODS.filter(m => moodCount[m.id]).sort((a,b) => moodCount[b.id] - moodCount[a.id]).forEach(m => {
+      const pct = Math.round(moodCount[m.id] / moodTotal * 100);
+      html += `<div class="mood-bar">
+        <span class="name">${m.emoji} ${m.label}</span>
+        <div class="track"><div class="fill" style="width:${pct}%;background:${m.color}"></div></div>
+        <span class="val">${moodCount[m.id]}</span>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `<div class="day-sep"><span>数据管理</span><div class="line"></div></div>
+    <div style="padding:16px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn-primary" data-act="export">导出备份</button>
+      <button class="btn-primary" style="background:var(--input);color:var(--text)" data-act="import">导入备份</button>
+      <button class="btn-primary" style="background:rgba(244,33,46,.15);color:var(--red)" data-act="clear-all">清空全部</button>
+      <input type="file" id="importFile" accept="application/json" hidden>
+    </div>
+    <div style="padding:0 16px 40px;color:var(--muted);font-size:12px;line-height:1.8">
+      共 ${imgCount} 张图片 · 数据仅保存在本机浏览器中
+    </div>`;
+  return html;
+}
+
+/* =========================================================
+   日记卡片
+   ========================================================= */
+function entryCard(e){
+  const dt = new Date(e.createdAt);
+  const mood = MOODS.find(m => m.id === e.mood);
+  const weather = WEATHERS.find(w => w.id === e.weather);
+  const time = `${pad(dt.getHours())}:${pad(dt.getMinutes())}`;
+  const isLong = (e.content || '').length > 320;
+
+  const avatarStyle = mood
+    ? `background:${mood.color}22;`
+    : '';
+
+  return `<article class="entry" data-id="${e.id}">
+    <div class="avatar" style="${avatarStyle}">${mood ? mood.emoji : '📝'}</div>
+    <div class="entry-body">
+      <div class="entry-head">
+        <span class="entry-name">${mood ? mood.label : '日记'}</span>
+        ${weather ? `<span class="entry-weather">${weather.emoji}</span>` : ''}
+        <span class="entry-time">· ${time}</span>
+        ${e.updatedAt && e.updatedAt !== e.createdAt ? `<span class="entry-time">· 已编辑</span>` : ''}
+      </div>
+
+      ${e.content ? `<div class="entry-text ${isLong ? 'clamp' : ''}">${esc(e.content)}</div>` : ''}
+      ${isLong ? `<button class="more-btn" data-act="expand">展开全文</button>` : ''}
+
+      ${(e.images && e.images.length) ? `
+        <div class="image-grid" data-count="${Math.min(e.images.length,4)}">
+          ${e.images.slice(0,4).map(src => `<img src="${src}" loading="lazy" alt="">`).join('')}
+        </div>` : ''}
+
+      ${(e.tags && e.tags.length) ? `
+        <div class="entry-tags">
+          ${e.tags.map(t => `<button class="tag" data-act="tag-search" data-tag="${esc(t)}">#${esc(t)}</button>`).join('')}
+        </div>` : ''}
+
+      <div class="entry-actions">
+        <button class="act fav ${e.favorite ? 'on' : ''}" data-act="fav" title="收藏">
+          ${svgIcon('heart', 17)}<span>${e.favorite ? '已收藏' : '收藏'}</span>
+        </button>
+        <button class="act edit" data-act="edit" title="编辑">
+          ${svgIcon('edit', 17)}<span>编辑</span>
+        </button>
+        <button class="act del" data-act="del" title="删除">
+          ${svgIcon('trash', 17)}<span>删除</span>
+        </button>
+      </div>
+    </div>
+  </article>`;
+}
+
+function emptyState(title = '还没有日记', desc = '', btn = true){
+  return `<div class="empty">
+    <div class="empty-icon">📖</div>
+    <h3>${title}</h3>
+    ${desc ? `<p>${desc}</p>` : ''}
+    ${btn ? `<button class="btn-primary" data-act="compose">写一篇日记</button>` : ''}
+  </div>`;
+}
+
+/*=========================================================
+   编辑器
+=========================================================*/
+函数openComposer(id=null){
+if(id){
+const e=entrys.find(x=>x.id===id)；
+如果(！e)返回；
+editingId=id；
+草稿={
+内容：e.content||"，
+mood:e.mood||null，
+weather:e.weather||null，
+标签：[...(e.tags||[])]，
+图像：[...(e.images||[])]，
+    };
+}else{
+editingId=空；
+draft={content："，mood:null，weather:null，tags：[]，images：[]}；
+  }
+renderComposer()；
+document.getElementById('modalRoot').hidden=false；
+document.body.style.overflow='hidden'；
+
+Const ta=document.getElementById('contentInput')；
+if(ta){
+ta.focus()；
+    ta.setSelectionRange(ta.value.length, ta.value.length);
+    autoGrow(ta);
+  }
+  updatePublishState();
+}
+
+function closeComposer(){
+  document.getElementById('modalRoot').hidden = true;
+  document.getElementById('modalRoot').innerHTML = '';
+  document.body.style.overflow = '';
+  editingId = null;
+  draft = null;
+}
+
+function renderComposer(){
+  const root = document.getElementById('modalRoot');
+  const mood = MOODS.find(m => m.id === draft.mood);
+
+  root.innerHTML = `<div class="composer-panel" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <button class="icon-btn" data-act="close">✕</button>
+      <span class="modal-title">${editingId ? '编辑日记' : '新的日记'}</span>
+      <button class="post-btn" id="publishBtn" data-act="publish" disabled>
+        ${editingId ? '保存' : '发布'}
+      </button>
+    </div>
+
+    <div class="composer-scroll">
+      <div class="composer-row">
+        <div class="avatar" id="composerAvatar" style="${mood ? `background:${mood.color}22;` : ''}">
+          ${情绪 ? 情绪.表情符号 : '📝'}
+</div>
+<div class="composer-col">
+<textarea id="contentInput"class="composer-input"
+占位符="今天发生了什么？">${ESC(草案.内容)}</textarea>
+<div class="image-grid"id="draftImages"style="display:none"></div>
+</div>
+</div>
+</div>
+
+<div class="tool-panel"id="panel-mood"隐藏>
+<div class="mood-grid">
+        ${情绪.地图(米=>'<button class="mood-btn${草案.情绪===米.身份标识?'活动':''}data-act=“mood”data-mood=${米.身份标识}">
+<span>${米.表情符号}</span><small>${米.标签}</small>
+</button>').参加('')}
+</div>
+</div>
+
+<div class="tool-panel"id="panel-weather"隐藏>
+<div class="mood-grid">
+        ${weathers.地图(w=>'<button class="mood-btn${草案.天气===w.身份标识?'活动':''}"data-act="weather"data-weather="${w.身份标识}">
+<span>${w.表情符号}</span><small>${w.标签}</small>
+</button>').参加('')}
+</div>
+</div>
+
+    <div class="tool-panel" id="panel-tags" hidden>
+      <input class="tag-input" id="tagInput" placeholder="用逗号或空格分隔，如：生活 读书 旅行"
+        value="${esc(draft.tags.join(' '))}">
+    </div>
+
+    <div class="composer-tools">
+      <button class="tool" data-act="toggle-panel" data-panel="mood" title="心情">😊</button>
+      <button class="tool" data-act="toggle-panel" data-panel="weather" title="天气">☀️</button>
+      <button class="tool" data-act="toggle-panel" data-panel="tags" title="标签">${svgIcon('tag', 18)}</button>
+      <button class="tool" data-act="pick-image" title="图片">${svgIcon('image', 18)}</button>
+      <input type="file" id="fileInput" accept="image/*" multiple hidden>
+      <span class="counter" id="counter">0</span>
+    </div>
+  </div>`;
+
+  // textarea 自动增高 + 实时同步
+  const ta = document.getElementById('contentInput');
+  ta.addEventListener('input', () => {
+    draft.content = ta.value;
+    autoGrow(ta);
+    updatePublishState();
+  });
+  ta.addEventListener('keydown', ev => {
+    if ((ev.metaKey || ev.ctrlKey) && ev.key === 'Enter'){ ev.preventDefault(); publish(); }
+  });
+
+  // 标签输入
+  const tagInput = document.getElementById('tagInput');
+  tagInput.addEventListener('input', () => {
+    draft.tags = tagInput.value.split(/[,，\s]+/).map(s => s.trim()).filter(Boolean).slice(0, 10);
+  });
+
+  // 图片选择
+  document.getElementById('fileInput').addEventListener('change', async ev => {
+    await handleFiles(ev.target.files);
+    ev.target.value = '';
+  });
+
+  renderDraftImages();
+  updatePublishState();
+}
+
+function autoGrow(ta){
+  ta.style.height = 'auto';
+  ta.style.height = Math.max(100, ta.scrollHeight) + 'px';
+}
+
+function updatePublishState(){
+  const btn = document.getElementById('publishBtn');
+  if (!btn || !draft) return;
+Const ok=拔模。content.trim().length>0||draft.images.length>0；
+btn.disabled=！OK；
+常量计数器=document.getElementById('counter')；
+if(counter)counter.textContent=draft.content.length；
+}
+
+函数renderDraftImages(){
+Const grid=document.getElementById('draftImages')；
+if(！grid||！draft)返回；
+如果(！草案。图像。长度){网格。风格。display='none'；网格。innerHTML="；return；}
+grid.style.display='grid'；
+grid.dataset.count=Math.min(draft.images.length，4)；
+grid.innerHTML=draft.images.map((src，i)=>'
+<div class="img-thumb">
+<img src="${src}"alt="">
+<按钮class="img-del"data-act="img-del"data-I="${i}">✕</button>
+</div>').join(")；
+}
+
+/*图片压缩，避免localStorage爆掉*/
+函数compressImage(文件，maxSize=900，质量=0.72){
+返回新承诺(resolve=>{
+Const reader=新建FileReader()；
+reader.onload=()=>{
+常数img=新图像()；
+Const img=新图像()；
+设{width:w，height:h}=img；
+if(w>maxSize||h>maxSize){
+如果(w>h){h=数学循环(h*maxSize/w)；w=maxSize；}
+else{w=数学圆形(w*maxSize/h)；h=maxSize；}
+        }
+Const canvas=document.createElement('canvas')；
+canvas.width=w；canvas.height=h；
+canvas.getContext('2d').drawImage(img，0，0，w，h)；
+resolve(canvas.toDataURL('image/jpeg'，quality))；
+      };
+img.onerror=()=>resolve(null)；
+img.src=reader.result；
+    };
+reader.onerror=()=>resolve(null)；
+reader.readAsDataURL(文件)；
+  });
+}
+
+异步函数句柄文件(文件){
+if(！files||！files.length)返回；
+常量保留=4-拔模.图像.长度；
+if(保持<=0){toast('最多添加4张图片')；返回；}
+常量列表=[...文件].slice(0，保留)；
+吐司('处理图片中…')；
+for(清单的常数f){
+常数数据=等待压缩图像(f)；
+if(数据)draft.images.push(数据)；
+  }
+renderDraftImages()；
+updatePublishState()；
+}
+
+/*=========================================================
+发布 / 编辑 / 删除
+=========================================================*/
+函数publish(){
+if(！草稿)返回；
+const content=draft.content.trim()；
+if(！content&&！draft.images.length)返回；
+
+if(editingId){
+const e=entrys.find(x=>x.id===editingId)；
+if(e){
+object.assign(e，{
+内容，
+mood：草稿.mood，
+天气：吃水.天气，
+标签：draft.tags，
+图像：draft.images，
+updatedAt：新日期().toISOString()，
+      });
+    }
+吐司('已保存修改')；
+}else{
+Const now=新日期().toISOString()；
+entrys.push({
+ID:uid()，
+内容，
+      mood: draft.mood,
+      weather: draft.weather,
+      tags: draft.tags,
+      images: draft.images,
+      favorite: false,
+      createdAt: now,
+updatedAt:now，
+    });
+toast('日记已发布 ✨')；
+  }
+节省()；
+closeComposer()；
+提供()；
+}
+
+/*=========================================================
+   事件处理
+=========================================================*/
+document.addEventListener('click'，ev=>{
+Const Actel=ev.target.closest('[data-act]')；
+Const viewEl=ev.target.closest('[data-view]')；
+Const entryEl=ev.target.closest('[data-id]')；
+Const id=entryEl？entryEl.dataset.id：空；
+
+if(Actel){
+const act=actEl.dataset.act；
+// 搜索框点击 → 进入搜索视图
+if(act==='goto-search'){setView('search')；return；}
+
+开关(动作){
+案例'主题'：
+ui.theme=ui.theme==='深色'？'浅色'：'深色'；
+保存返回；)；渲染()；
+文件.getElementById('ImportFile')。单击()；文件.getElementById('ImportFile')。单击()；
+
+大小写'构成'：
+openComposer
+返回；
+
+'构成'
+closeComposer
+返回；
+
+案例'出版'：
+出版()；
+返回；
+
+案例“关闭”：
+'出版'
+renderComposer
+吃水
+
+案例“天气”：
+吃水.天气=吃水。weather===Actel.dataset。天气？null:Actel。数据集。天气；.天气=吃水。weather===Actel.dataset。天气？null:Actel。数据集。天气；
+吃水
+返回；
+
+方案示例'切换面板'：{
+Actel.数据集。天气；
+Const面板
+Const
+'天气'
+常数p
+如果
+        });
+p
+如果
+面板
+Actel
+如果
+Const钛
+常数e
+          }
+        }
+返回；
+      }
+
+案例“拾取图像”：
+文件.getElementById('FileInput')。单击()；
+返回；
+
+案例'img-del'：{
+Const我=数量(Actel.数据集.我)；
+草案.图片.拼接(i，1)；
+renderDraftImages()；
+updatePublishState()；
+返回；
+      }
+
+案例'fav'：{
+常数e=条目.Ind(x=>x.身份标识===身份标识)；
+如果(e){
+e。最喜欢的=！E。收藏；
+节省()；
+renderMain()；
+吐司(e.最喜欢的？'已加入收藏 ❤️'：'已取消收藏')；
+        }
+返回；
+      }
+
+案例'编辑'：
+openComposer(身份标识)；
+返回；
+
+案例'del'：{
+常数e=条目.Ind(x=>x.身份标识===身份标识)；
+如果
+如果
+条目
+保存
+吐司
+}
+返回；
+      }
+
+案例
+Const
+如果
+textEl
+Actel
+        
+返回；
+      }
+
+案例'标记搜索'：
+返回；
+setView
+返回；
+
+案例'cal-prev'：
+用户界面。calCursor
+renderMain
+返回；
+
+案例'Cal-next'：
+用户界面。calCursor
+renderMain
+返回；
+
+案例“cal-day”：
+用户界面。selectedDay
+renderMain
+返回；
+
+Actel.数据集。一天？无效的：Actel
+exportData
+      
+
+吐司
+案例“导出”：
+        返回;返回;
+
+案例 '全部清除':案例 '全部清除':
+如果 (确认('确定清空全部日记？ 此操作不可恢复！ ')){如果 (确认('确定清空全部日记？ 此操作不可恢复！ ')){
+条目=[];条目=[];
+节省(); 提供();(); 提供();
+吐司('已清空');('已清空');
+        }
+        返回；返回；
+    }
+  }
+
+如果(观点埃尔&&！Actel){如果(观点埃尔&&！Actel){
+setView(viewEl.数据集.观点)；(viewEl.数据集.观点)；
+  }
+});
+
+/* 搜索输入实时过滤 */
+文件.addEventListener('输入'，电动汽车=>{.addEventListener('输入'，电动汽车=>{
+如果(电动汽车.目标.身份标识==='SearchInput'){如果(电动汽车.目标.身份标识==='SearchInput'){
+用户界面.查询=电动汽车.目标.价值;用户界面.查询=电动汽车.目标.价值;
+Const盒=文件.getElementById('SearchResults')；常数盒=文件.getElementById('SearchResults')；
+如果(盒子)盒子.innerHTML=searchResultsHTML()；如果(盒子)盒子.innerHTML=searchResultsHTML()；
+  }
+});
+
+/* 点击遮罩关闭弹窗 */
+文件.getElementById('modalRoot').AddEventListener('mousedown'，电动汽车=>{.getElementById('modalRoot').AddEventListener('mousedown'，电动汽车=>{
+如果(电动汽车.目标.身份标识==='modalRoot')关闭作曲家()；如果(电动汽车.目标.身份标识==='modalRoot')关闭作曲家()；
+});
+
+/*ESC关闭*/
+文件.addEventListener('按下键'，电动汽车=>{.AddEventListener('按下键'，电动汽车=>{
+如果(电动汽车.钥匙==='转义'&&！文件.getElementById('modalRoot')。隐藏的)closeComposer()；如果(电动汽车.钥匙==='转义'&&！文件.getElementById('modalRoot')。隐藏的)closeComposer()；
+});
+
+/* 导入文件 */
+文件.addEventListener('更改'，电动汽车=>{.AddEventListener('更改'，电动汽车=>{
+如果(电动汽车.目标.身份标识！=='ImportFile')返回；如果(电动汽车.目标.身份标识！=='ImportFile')返回；
+Const文件=电动汽车.目标.文件[0]；Const文件=电动汽车.目标.文件[0]；
+如果 (! 文件) 返回;如果 (! 文件) 返回;
+Const读者=新的FileReader()；Const读者=新的FileReader()；
+读者.onload=()=>{读者.onload=()=>{
+尝试{尝试{
+Const数据=JSON。解析(读者.结果)；Const数据=JSON。解析(读者.结果)；
+Const列表=数组.isArray(数据)？数据：数据.条目；Const列表=数组.isArray(数据)？数据：数据.条目；
+如果(！数组.isArray(列表))扔新的误差('格式错误')；如果(！数组.isArray(列表))扔新的误差('格式错误')；
+Const有效的=列表.过滤器(x=>x&&x.身份标识&&x.createdAt)；常数有效的=列表.过滤器(x=>x&&x.身份标识&&x.createdAt)；
+      如果 (!有效的.长度) 扔新的误差('没有有效数据');如果 (!有效的.长度) 扔新的误差('没有有效数据');
+      如果 (确认(`导入 ${有效的.长度}篇日记？ 现有数据将被合并。`)){如果 (确认(`导入 ${有效的.长度}篇日记？ 现有数据将被合并。`)){
+ConstIDs=新的设置(条目.地图(e=>e.身份标识))；ConstIDs=新的设置(条目.地图(e=>e.身份标识))；
+有效的.foreach(e=>{如果(！我DS.有(e.身份标识))条目.推(e)；})；有效的.foreach(e=>{如果(！我DS.有(e.身份标识))条目.推(e)；})；
+节省(); 提供();(); 提供();
+吐司(`已导入 ${有效的.长度}篇`);(`已导入 ${有效的.长度}篇`);
+      }
+}赶上(犯错){}赶上(犯错){
+<！doctype超文本标记语言>/超文本标记语言>/超文本标记语言>吐司('导入失败：文件格式不正确');！doctype超文本标记语言>/超文本标记语言>/超文本标记语言>吐司('导入失败：文件格式不正确');
+    }
+电动汽车.目标.价值='';电动汽车.目标.价值='';
+  };
+读者.readAsText(文件)；读者.readAsText(文件)；
+});
+
+=========================================================*/
+/*=========================================================
+=========================================================*/
+函数exportData超文本标记语言>(){exportData(){>(){exportData(){
+Const数据=J儿子.使字符串化({版本：1，exportedAt：新的日期().toISOString()，条目}，无效的，2)；Const数据=J儿子.使字符串化({版本：1，exportedAt：新的日期().toISOString()，条目}，无效的，2)；
+Const斑点=新的斑点([数据]，{类型：'应用程序/约翰逊})；Const斑点=新的斑点([数据]，{类型：'应用程序/约翰逊})；
+ConstURL=URL。createObjectURL(斑点)；ConstURL=URL.createObjectURL(斑点)；
+Const一个=文件.createElement('A')；Const一个=文件.createElement('A')；
+一个.href=URL；一个.href=URL；.href=URL；一个.href=URL；
+一个.下载='日记备份-${dateKey(新的日期()}.json'；一个.下载='日记备份-${dateKey(新的日期()}.json'；.下载='日记备份-${dateKey(新的日期()}.json'；一个.下载='日记备份-${dateKey(新的日期()}.json'；
+一个.点击();一个.点击();.点击();一个.点击();
+URL。revokeObjectURL(URL)；URL。revokeObjectURL(URL)；。revokeObjectURL(URL)；URL。revokeObjectURL(URL)；
+吐司('备份已导出');吐司('备份已导出');('备份已导出');吐司('备份已导出');
+}
+
+=========================================================*/
+=========================================================*/
+/*=========================================================
+功能setView(v){setView(v){(v){setView(v){
+  用户界面.观点=v;用户界面.观点=v;用户界面.观点=v;用户界面.观点=v;
+如果
+如果
+</超文本标记超文本标记
+}
+
+案例“导出”：
+=========================================================*/
+/*=========================================================
+功能init
+负载
+文件
+提供
+
+//
+如果
+setTimeout
+      吐司吐司
+}
+  
+}
+init
+</剧
+</
+</
