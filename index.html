@@ -33,73 +33,73 @@ input,textarea{font-family:inherit;font-size:inherit;color:inherit}
 /* ============ 布局 ============ */
 .app{display:flex;justify-content:center;min-height:100vh}
 
-/*----左侧栏----*/
-.侧边栏{
-  宽度:275PX;弯曲:0 0 275PX;填充:8PX 12PX;
-  显示:弯曲;挠曲方向:柱;差距:4PX;
-  位置:粘性的;顶端:0;高度:100VH;
+/* ---- 左侧栏 ---- */
+.sidebar{
+  width:275px;flex:0 0 275px;padding:8px 12px;
+  display:flex;flex-direction:column;gap:4px;
+  position:sticky;top:0;height:100vh;
 }
-.标志{宽度:50PX;高度:50PX;显示:弯曲;对齐项目:中心;justify-content:中心;
-  边界半径:50%;颜色:var(--text);边缘:2PX 0 4PX;过渡:背景 .15s}
-.标志:盘旋{背景:var(--悬停)}
-.标志 SVG{宽度:28PX;高度:28PX}
-.导航项{
-  显示:弯曲;对齐项目:中心;差距:18PX;填充:12PX;
-  边界半径:9999PX;字体大小:19PX;颜色:var(--text);
-  过渡:背景 .15s;宽度:最大含量;最大宽度:100%;
+.logo{width:50px;height:50px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;color:var(--text);margin:2px 0 4px;transition:background .15s}
+.logo:hover{background:var(--hover)}
+.logo svg{width:28px;height:28px}
+.nav-item{
+  display:flex;align-items:center;gap:18px;padding:12px;
+  border-radius:9999px;font-size:19px;color:var(--text);
+  transition:background .15s;width:max-content;max-width:100%;
 }
-.导航项:盘旋{背景:var(--悬停)}
-.导航项.活跃的{字体粗细:700}
-.导航项 SVG{宽度:24PX;高度:24PX;挠曲收缩:0}
-.导航标签{空白:noWrap}
+.nav-item:hover{background:var(--hover)}
+.nav-item.active{font-weight:700}
+.nav-item svg{width:24px;height:24px;flex-shrink:0}
+.nav-label{white-space:nowrap}
 .compose-btn{
-  上边距:14PX;背景:var(--蓝色);颜色：#FFF；字体粗细:700;
-  字体大小:16PX;边界半径:9999PX;填充:15PX 32PX;宽度:100%;
-  显示:弯曲;对齐项目:中心;justify-content:中心;差距:8PX;
-  过渡:背景 .15s;箱形阴影:0 0 0 0 RGBA(29,155,240,.6);
+  margin-top:14px;background:var(--blue);color:#fff;font-weight:700;
+  font-size:16px;border-radius:9999px;padding:15px 32px;width:100%;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:background .15s;box-shadow:0 0 0 0 rgba(29,155,240,.6);
 }
-.compose-btn:盘旋{背景:var(--蓝调)}
-.边杆-脚{上边距:自动;填充:12PX 0}
-.主题切换{显示:弯曲;对齐项目:中心;差距:12PX;填充:10PX 12PX;
-  边界半径:9999PX;字体大小:15PX;颜色:var(--已静音);宽度:100%;过渡:背景 .15s}
-.主题切换:盘旋{背景:var(--悬停)}
+.compose-btn:hover{background:var(--blue-dim)}
+.sidebar-foot{margin-top:auto;padding:12px 0}
+.theme-toggle{display:flex;align-items:center;gap:12px;padding:10px 12px;
+  border-radius:9999px;font-size:15px;color:var(--muted);width:100%;transition:background .15s}
+.theme-toggle:hover{background:var(--hover)}
 
-/*----主区域----*/
-.主要的{
-  宽度:600PX;弯曲:0 0 600PX;最小高度:100VH;
-  左边框:1PX 固体 var(--边界);右边框:1PX 固体 var(--边界);
+/* ---- 主区域 ---- */
+.main{
+  width:600px;flex:0 0 600px;min-height:100vh;
+  border-left:1px solid var(--border);border-right:1px solid var(--border);
 }
-.顶栏{
-  位置:粘性的;顶端:0;Z指数:20;
-  背景:混色(在……内 sRGB,var(--bg) 82%,透明的);
-  背景滤光镜:模糊(12PX);-webkit-backdrop-filter:模糊(12PX);
-  下边框:1PX 固体 var(--边界);
+.topbar{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb,var(--bg) 82%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
 }
-.顶行{显示:弯曲;对齐项目:中心;justify-content:间距;填充:12PX 16PX;最小高度:53PX}
-.顶栏 H1{边缘:0;字体大小:20PX;字体粗细:800;线高:1.2}
-.顶栏 p{边缘:2PX 0 0;字体大小:13PX;颜色:var(--已静音);字体粗细:400}
+.topbar-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;min-height:53px}
+.topbar h1{margin:0;font-size:20px;font-weight:800;line-height:1.2}
+.topbar p{margin:2px 0 0;font-size:13px;color:var(--muted);font-weight:400}
 .icon-btn{
-  宽度:38PX;高度:38PX;边界半径:50%;显示:弯曲;对齐项目:中心;justify-content:中心;
-  颜色:var(--text);过渡:背景 .15s;挠曲收缩:0;字体大小:16PX;
+  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:var(--text);transition:background .15s;flex-shrink:0;font-size:16px;
 }
-.icon-btn:盘旋{背景:var(--悬停)}
-.icon-btn.SM{宽度:32PX;高度:32PX;字体大小:14PX}
+.icon-btn:hover{background:var(--hover)}
+.icon-btn.sm{width:32px;height:32px;font-size:14px}
 
 /* ---- 那年今日横幅 ---- */
 .otd-banner{
-  显示:弯曲;对齐项目:中心;差距:12PX;填充:14PX 16PX;光标:指针;
-  下边框:1PX 固体 var(--边界);
-  背景:线性梯度(90deg,RGBA(29,155,240,.12),RGBA(249,24,128,.08));
-  过渡:背景 .15s;
+  display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(90deg,rgba(29,155,240,.12),rgba(249,24,128,.08));
+  transition:background .15s;
 }
-.otd-banner:盘旋{背景:线性梯度(90deg,RGBA(29,155,240,.2),RGBA(249,24,128,.14))}
-.otd表情符号{字体大小:24PX}
-.otd-banner 强大的{显示:块;字体大小:15PX}
-.otd-sub{字体大小:13PX;颜色:var(--已静音);上边距:1PX}
-.otd-箭头{左边距:自动;颜色:var(--已静音);字体大小:18PX}
+.otd-banner:hover{background:linear-gradient(90deg,rgba(29,155,240,.2),rgba(249,24,128,.14))}
+.otd-emoji{font-size:24px}
+.otd-banner strong{display:block;font-size:15px}
+.otd-sub{font-size:13px;color:var(--muted);margin-top:1px}
+.otd-arrow{margin-left:auto;color:var(--muted);font-size:18px}
 
 /* ---- 日期分隔 ---- */
-.日-九月,.年-九月{
+.day-sep,.year-sep{
   display:flex;align-items:center;gap:10px;padding:14px 16px 8px;
   font-size:13px;font-weight:700;color:var(--muted);
 }
@@ -310,119 +310,119 @@ input,textarea{font-family:inherit;font-size:inherit;color:inherit}
 @media(max-width:700px){
   .sidebar{display:none}
   .main{width:100%;flex:1 1 auto;border-left:none;border-right:none}
-  .底航{显示:弯曲}
-  身体{垫底:calc(54PX+env(安全区内底))}
-  .作曲家面板{边界半径:18PX 18PX 0 0;最大高度:92VH}
-  .模态根{对齐项目:柔性端}
-  .进入{填充:12PX 14PX}
-  .化身{宽度:40PX;高度:40PX;字体大小:18PX}
+  .bottom-nav{display:flex}
+  body{padding-bottom:calc(54px + env(safe-area-inset-bottom))}
+  .composer-panel{border-radius:18px 18px 0 0;max-height:92vh}
+  .modal-root{align-items:flex-end}
+  .entry{padding:12px 14px}
+  .avatar{width:40px;height:40px;font-size:18px}
 }
-</风格>
-</头>
-<身体>
+</style>
+</head>
+<body>
 
-<div 班级="应用程序">
-  <在一边 班级="侧边栏" 身份标识="侧边栏"></在一边>
-  <主要的 班级="主要" 身份标识="主要"></主要的>
-  <在一边 班级="右栏" 身份标识="右栏"></在一边>
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main" id="main"></main>
+  <aside class="rightbar" id="rightbar"></aside>
 </div>
 
-<NAV 班级="底部导航" 身份标识="bottomNav"></NAV>
-<div 班级="modal-根" 身份标识="modalRoot" 隐藏的></div>
-<div 班级="吐司" 身份标识="吐司"></div>
+<nav class="bottom-nav" id="bottomNav"></nav>
+<div class="modal-root" id="modalRoot" hidden></div>
+<div class="toast" id="toast"></div>
 
-<脚本>
-/*=========================================================
+<script>
+/* =========================================================
    常量
-=========================================================*/
-Const store_KEY='Diary_app_v1';
+   ========================================================= */
+const STORE_KEY = 'diary_app_v1';
 
-Const 情绪=[
-  {身份标识:'Happy',   表情符号:'😄', 标签:'开心', 颜色:'#FFD400'},
-  {身份标识:'爱',    表情符号:'🥰', 标签:'幸福', 颜色:'#F91880'},
-  {身份标识:'平静',    表情符号:'😌', 标签:'平静', 颜色:'#00BA7C'},
-  {身份标识:'兴奋', 表情符号:'🤩', 标签:'兴奋', 颜色:'#7856FF'},
-  {身份标识:'累',   表情符号:'😮‍💨', 标签:'疲惫', 颜色:'#8B98A5'},
-  {身份标识:'sad',     表情符号:'😔', 标签:'难过', 颜色:'#1D9BF0'},
-  {身份标识:'愤怒',   表情符号:'😤', 标签:'生气', 颜色:'#FF7A00'},
-  {身份标识:'焦虑', 表情符号:'😰', 标签:'焦虑', 颜色:'#C084FC'},
+const MOODS = [
+  {id:'happy',   emoji:'😄', label:'开心', color:'#FFD400'},
+  {id:'love',    emoji:'🥰', label:'幸福', color:'#F91880'},
+  {id:'calm',    emoji:'😌', label:'平静', color:'#00BA7C'},
+  {id:'excited', emoji:'🤩', label:'兴奋', color:'#7856FF'},
+  {id:'tired',   emoji:'😮‍💨', label:'疲惫', color:'#8B98A5'},
+  {id:'sad',     emoji:'😔', label:'难过', color:'#1D9BF0'},
+  {id:'angry',   emoji:'😤', label:'生气', color:'#FF7A00'},
+  {id:'anxious', emoji:'😰', label:'焦虑', color:'#C084FC'},
 ];
-Const weathers=[
-  {身份标识:'sunny',  表情符号:'☀️', 标签:'晴'},
-  {身份标识:'云', 表情符号:'⛅', 标签:'多云'},
-  {身份标识:'雨',   表情符号:'🌧️', 标签:'雨'},
-  {身份标识:'风暴',  表情符号:'⛈️', 标签:'雷雨'},
-  {身份标识:'雪',   表情符号:'❄️', 标签:'雪'},
-  {身份标识:'雾',    表情符号:'🌫️', 标签:'雾'},
-  {身份标识:'Wind',   表情符号:'🌬️', 标签:'大风'},
+const WEATHERS = [
+  {id:'sunny',  emoji:'☀️', label:'晴'},
+  {id:'cloudy', emoji:'⛅', label:'多云'},
+  {id:'rain',   emoji:'🌧️', label:'雨'},
+  {id:'storm',  emoji:'⛈️', label:'雷雨'},
+  {id:'snow',   emoji:'❄️', label:'雪'},
+  {id:'fog',    emoji:'🌫️', label:'雾'},
+  {id:'wind',   emoji:'🌬️', label:'大风'},
 ];
-Const 视图=[
-  {身份标识:'时间线',  标签:'时间线',   图标:'Home'},
-  {身份标识:'otd',       标签:'那年今日', 图标:'时钟'},
-  {身份标识:'日历',  标签:'日历',     图标:'日历'},
-  {身份标识:'收藏夹', 标签:'收藏',     图标:'心脏'},
-  {身份标识:'搜索',    标签:'搜索',     图标:'搜索'},
-  {身份标识:'统计数据',     标签:'我的',     图标:'用户'},
+const VIEWS = [
+  {id:'timeline',  label:'时间线',   icon:'home'},
+  {id:'otd',       label:'那年今日', icon:'clock'},
+  {id:'calendar',  label:'日历',     icon:'calendar'},
+  {id:'favorites', label:'收藏',     icon:'heart'},
+  {id:'search',    label:'搜索',     icon:'search'},
+  {id:'stats',     label:'我的',     icon:'user'},
 ];
-Const 图标={
-  家:'<path d="M39.5123l96.5V20a1.515001-1.51.5h-15A1.515001320z"/><path d="M9 21.5v-8h6v8"/>',
-  时钟:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 1.9"/>',
-  日历:'<rect x="3"y="4.5"width="18"height="17"rx="2.5"/><path d="M82.5v4M162.5v4M310h18"/>',
-  心:'<path d="M20.85.1a5.45.4000-7.70L12 6.2l-1.1-1.1a5.45.4010-7.77.7l8.888.8-8.8a5.45.4000-7.7z"/>',
-  搜索:'<circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.3-4.3"/>',
-  用户:'<path d="M2021v-1.8a4.24200 0-4.2-4.2H8.2A4.242000419.2V21"/><circle cx="12"cy="7.5"r="4"/>',
-  羽毛:'<path d="M20.212.2a6600-8.5-8.5L510.5V19h8.5z"/><path d="M168222"/><path d="M17.515H9"/>',
-  星:'<路径d="m122.62.95.96.5.9-4.74.61.16.5-5.8-3-5.831.1-6.5L2.6 9.4l6.5-.9z"/>',
-  编辑:'<path d="M114H4.5A1.51.500035.5v14A1.51.50004.521h14a1.51.5000 1.5-1.5V13"/><path d="M18.4.2.6a22012.8L12 14.6l-3.5.7.7-3.5z"/>',
-  垃圾:'<path d="M36h18"/><path d="M86V4.5A1.5150019.5.3h5A1.515001164.5 V6"/><路径d="M196v13.5A1.51.500117.521h-11A1.51.5001519.5V6"/>',
-  图像:'<rect x="3"y="3"width="18"height="18"rx="2.5"/><circle cx="8.5"cy="8.5"r="1.8"/><路径d="M215.5-5-5L521"/>',
-  tag:'<path d="M20.613.412.421.6a1.61.60001-2.30l-8-8A1.61.600011.612l.4-9.4A1.61.600013.6.161h9.3a1.61.600011.2.5l77a1.61.6000102.3z"/><circle cx="7.5"cy="7.5"r="1.4"/>',
-  太阳:'<circle cx="12"cy="12"r="4.2"/><path d="M121.5v2.4M1220.1v2.4M4.2l1.71.7M18.118.1l1.71.7M1.512h2.4M20.112h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/>',
-  月亮:'<path d="M212.8A99011.123a770009.89.8z"/>',
+const ICONS = {
+  home:'<path d="M3 9.5 12 3l9 6.5V20a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 20z"/><path d="M9 21.5v-8h6v8"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 1.9"/>',
+  calendar:'<rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M8 2.5v4M16 2.5v4M3 10h18"/>',
+  heart:'<path d="M20.8 5.1a5.4 5.4 0 0 0-7.7 0L12 6.2l-1.1-1.1a5.4 5.4 0 1 0-7.7 7.7l8.8 8.8 8.8-8.8a5.4 5.4 0 0 0 0-7.7z"/>',
+  search:'<circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.3-4.3"/>',
+  user:'<path d="M20 21v-1.8a4.2 4.2 0 0 0-4.2-4.2H8.2A4.2 4.2 0 0 0 4 19.2V21"/><circle cx="12" cy="7.5" r="4"/>',
+  feather:'<path d="M20.2 12.2a6 6 0 0 0-8.5-8.5L5 10.5V19h8.5z"/><path d="M16 8 2 22"/><path d="M17.5 15H9"/>',
+  star:'<path d="m12 2.6 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3-5.8 3 1.1-6.5L2.6 9.4l6.5-.9z"/>',
+  edit:'<path d="M11 4H4.5A1.5 1.5 0 0 0 3 5.5v14A1.5 1.5 0 0 0 4.5 21h14a1.5 1.5 0 0 0 1.5-1.5V13"/><path d="M18.4 2.6a2 2 0 0 1 2.8 2.8L12 14.6l-3.5.7.7-3.5z"/>',
+  trash:'<path d="M3 6h18"/><path d="M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6"/><path d="M19 6v13.5A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5V6"/>',
+  image:'<rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="8.5" cy="8.5" r="1.8"/><path d="m21 15.5-5-5L5 21"/>',
+  tag:'<path d="M20.6 13.4 12.4 21.6a1.6 1.6 0 0 1-2.3 0l-8-8A1.6 1.6 0 0 1 1.6 12l.4-9.4A1.6 1.6 0 0 1 3.6 1h9.3a1.6 1.6 0 0 1 1.2.5l7 7a1.6 1.6 0 0 1 0 2.3z"/><circle cx="7.5" cy="7.5" r="1.4"/>',
+  sun:'<circle cx="12" cy="12" r="4.2"/><path d="M12 1.5v2.4M12 20.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M1.5 12h2.4M20.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/>',
+  moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
 };
-功能 svgIcon(姓名, 大小=24){
-  返回 '<svg viewBox="002424"width="${大小}"高度="${大小}"fill="无"
-stroke="CURRENTCOLOR"stroke-width="2"stroke-linecap="round"stroke-linejoin="round">${图标[姓名]||''}</svg>';
+function svgIcon(name, size=24){
+  return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]||''}</svg>`;
 }
 
-/*=========================================================
+/* =========================================================
    状态
-=========================================================*/
-让 条目=[];
-让 用户界面={
-  观点: '时间线',
-  主题: '深色',
-  查询: '',
-  calCursor: 新的 日期(),
-  selectedDay: 无效的,
+   ========================================================= */
+let entries = [];
+let ui = {
+  view: 'timeline',
+  theme: 'dark',
+  query: '',
+  calCursor: new Date(),
+  selectedDay: null,
 };
-让 editingId=无效的;
-让 草案=无效的;
+let editingId = null;
+let draft = null;
 
-/*=========================================================
+/* =========================================================
    工具函数
-=========================================================*/
-Const 垫=n=>线(n).padStart(2,'0');
-Const UID=()=>日期.现在().toString(36)+数学.随机().toString(36).片(2,7);
-Const dateKey=d=>`${d.getFullYear()}-${垫(d.getMonth()+1)}-${垫(d.GETDATE())}`;
-功能 ESC(s){
-  返回 线(s ?? '').取代(/[&<>"']/g, c=>(
+   ========================================================= */
+const pad = n => String(n).padStart(2,'0');
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+const dateKey = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+function esc(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => (
     {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]
   ));
 }
-功能 timeAgo(ISO){
-  Const d=新的 日期(ISO);
-  Const diff=(日期.现在() - d.getTime()) / 1000;
-  如果 (diff<60) 返回 '刚刚';
-  如果 (diff<3600) 返回 `${数学.地板(diff/60)}分钟前`;
-  如果 (diff<86400) 返回 `${数学.地板(diff/3600)}小时前`;
-  如果 (diff<86400*7) 返回 `${数学.地板(diff/86400)}天前`;
-  返回 `${d.getMonth()+1}月${d.GETDATE()}日`;
+function timeAgo(iso){
+  const d = new Date(iso);
+  const diff = (Date.now() - d.getTime()) / 1000;
+  if (diff < 60) return '刚刚';
+  if (diff < 3600) return `${Math.floor(diff/60)}分钟前`;
+  if (diff < 86400) return `${Math.floor(diff/3600)}小时前`;
+  if (diff < 86400*7) return `${Math.floor(diff/86400)}天前`;
+  return `${d.getMonth()+1}月${d.getDate()}日`;
 }
-功能 dayLabel(k){
-  Const [y,米,d]=k.分离('-').地图(数量);
-  Const DT=新的 日期(y, 米-1, d);
-  Const 现在=新的 日期();
+function dayLabel(k){
+  const [y,m,d] = k.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  const now = new Date();
   const yest = new Date(now); yest.setDate(yest.getDate()-1);
   if (k === dateKey(now)) return '今天';
   if (k === dateKey(yest)) return '昨天';
@@ -919,32 +919,32 @@ function emptyState(title = '还没有日记', desc = '', btn = true){
   </div>`;
 }
 
-/*=========================================================
+/* =========================================================
    编辑器
-=========================================================*/
-函数openComposer(id=null){
-if(id){
-const e=entrys.find(x=>x.id===id)；
-如果(！e)返回；
-editingId=id；
-草稿={
-内容：e.content||"，
-mood:e.mood||null，
-weather:e.weather||null，
-标签：[...(e.tags||[])]，
-图像：[...(e.images||[])]，
+   ========================================================= */
+function openComposer(id = null){
+  if (id){
+    const e = entries.find(x => x.id === id);
+    if (!e) return;
+    editingId = id;
+    draft = {
+      content: e.content || '',
+      mood: e.mood || null,
+      weather: e.weather || null,
+      tags: [...(e.tags || [])],
+      images: [...(e.images || [])],
     };
-}else{
-editingId=空；
-draft={content："，mood:null，weather:null，tags：[]，images：[]}；
+  } else {
+    editingId = null;
+    draft = { content:'', mood:null, weather:null, tags:[], images:[] };
   }
-renderComposer()；
-document.getElementById('modalRoot').hidden=false；
-document.body.style.overflow='hidden'；
+  renderComposer();
+  document.getElementById('modalRoot').hidden = false;
+  document.body.style.overflow = 'hidden';
 
-Const ta=document.getElementById('contentInput')；
-if(ta){
-ta.focus()；
+  const ta = document.getElementById('contentInput');
+  if (ta){
+    ta.focus();
     ta.setSelectionRange(ta.value.length, ta.value.length);
     autoGrow(ta);
   }
@@ -975,31 +975,31 @@ function renderComposer(){
     <div class="composer-scroll">
       <div class="composer-row">
         <div class="avatar" id="composerAvatar" style="${mood ? `background:${mood.color}22;` : ''}">
-          ${情绪 ? 情绪.表情符号 : '📝'}
-</div>
-<div class="composer-col">
-<textarea id="contentInput"class="composer-input"
-占位符="今天发生了什么？">${ESC(草案.内容)}</textarea>
-<div class="image-grid"id="draftImages"style="display:none"></div>
-</div>
-</div>
-</div>
+          ${mood ? mood.emoji : '📝'}
+        </div>
+        <div class="composer-col">
+          <textarea id="contentInput" class="composer-input"
+            placeholder="今天发生了什么？">${esc(draft.content)}</textarea>
+          <div class="image-grid" id="draftImages" style="display:none"></div>
+        </div>
+      </div>
+    </div>
 
-<div class="tool-panel"id="panel-mood"隐藏>
-<div class="mood-grid">
-        ${情绪.地图(米=>'<button class="mood-btn${草案.情绪===米.身份标识?'活动':''}data-act=“mood”data-mood=${米.身份标识}">
-<span>${米.表情符号}</span><small>${米.标签}</small>
-</button>').参加('')}
-</div>
-</div>
+    <div class="tool-panel" id="panel-mood" hidden>
+      <div class="mood-grid">
+        ${MOODS.map(m => `<button class="mood-btn ${draft.mood===m.id?'active':''}" data-act="mood" data-mood="${m.id}">
+          <span>${m.emoji}</span><small>${m.label}</small>
+        </button>`).join('')}
+      </div>
+    </div>
 
-<div class="tool-panel"id="panel-weather"隐藏>
-<div class="mood-grid">
-        ${weathers.地图(w=>'<button class="mood-btn${草案.天气===w.身份标识?'活动':''}"data-act="weather"data-weather="${w.身份标识}">
-<span>${w.表情符号}</span><small>${w.标签}</small>
-</button>').参加('')}
-</div>
-</div>
+    <div class="tool-panel" id="panel-weather" hidden>
+      <div class="mood-grid">
+        ${WEATHERS.map(w => `<button class="mood-btn ${draft.weather===w.id?'active':''}" data-act="weather" data-weather="${w.id}">
+          <span>${w.emoji}</span><small>${w.label}</small>
+        </button>`).join('')}
+      </div>
+    </div>
 
     <div class="tool-panel" id="panel-tags" hidden>
       <input class="tag-input" id="tagInput" placeholder="用逗号或空格分隔，如：生活 读书 旅行"
@@ -1051,344 +1051,344 @@ function autoGrow(ta){
 function updatePublishState(){
   const btn = document.getElementById('publishBtn');
   if (!btn || !draft) return;
-Const ok=拔模。content.trim().length>0||draft.images.length>0；
-btn.disabled=！OK；
-常量计数器=document.getElementById('counter')；
-if(counter)counter.textContent=draft.content.length；
+  const ok = draft.content.trim().length > 0 || draft.images.length > 0;
+  btn.disabled = !ok;
+  const counter = document.getElementById('counter');
+  if (counter) counter.textContent = draft.content.length;
 }
 
-函数renderDraftImages(){
-Const grid=document.getElementById('draftImages')；
-if(！grid||！draft)返回；
-如果(！草案。图像。长度){网格。风格。display='none'；网格。innerHTML="；return；}
-grid.style.display='grid'；
-grid.dataset.count=Math.min(draft.images.length，4)；
-grid.innerHTML=draft.images.map((src，i)=>'
-<div class="img-thumb">
-<img src="${src}"alt="">
-<按钮class="img-del"data-act="img-del"data-I="${i}">✕</button>
-</div>').join(")；
+function renderDraftImages(){
+  const grid = document.getElementById('draftImages');
+  if (!grid || !draft) return;
+  if (!draft.images.length){ grid.style.display = 'none'; grid.innerHTML = ''; return; }
+  grid.style.display = 'grid';
+  grid.dataset.count = Math.min(draft.images.length, 4);
+  grid.innerHTML = draft.images.map((src, i) => `
+    <div class="img-thumb">
+      <img src="${src}" alt="">
+      <button class="img-del" data-act="img-del" data-i="${i}">✕</button>
+    </div>`).join('');
 }
 
-/*图片压缩，避免localStorage爆掉*/
-函数compressImage(文件，maxSize=900，质量=0.72){
-返回新承诺(resolve=>{
-Const reader=新建FileReader()；
-reader.onload=()=>{
-常数img=新图像()；
-Const img=新图像()；
-设{width:w，height:h}=img；
-if(w>maxSize||h>maxSize){
-如果(w>h){h=数学循环(h*maxSize/w)；w=maxSize；}
-else{w=数学圆形(w*maxSize/h)；h=maxSize；}
+/* 图片压缩，避免 localStorage 爆掉 */
+function compressImage(file, maxSize = 900, quality = 0.72){
+  return new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        let { width: w, height: h } = img;
+        if (w > maxSize || h > maxSize){
+          if (w > h){ h = Math.round(h * maxSize / w); w = maxSize; }
+          else { w = Math.round(w * maxSize / h); h = maxSize; }
         }
-Const canvas=document.createElement('canvas')；
-canvas.width=w；canvas.height=h；
-canvas.getContext('2d').drawImage(img，0，0，w，h)；
-resolve(canvas.toDataURL('image/jpeg'，quality))；
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
       };
-img.onerror=()=>resolve(null)；
-img.src=reader.result；
+      img.onerror = () => resolve(null);
+      img.src = reader.result;
     };
-reader.onerror=()=>resolve(null)；
-reader.readAsDataURL(文件)；
+    reader.onerror = () => resolve(null);
+    reader.readAsDataURL(file);
   });
 }
 
-异步函数句柄文件(文件){
-if(！files||！files.length)返回；
-常量保留=4-拔模.图像.长度；
-if(保持<=0){toast('最多添加4张图片')；返回；}
-常量列表=[...文件].slice(0，保留)；
-吐司('处理图片中…')；
-for(清单的常数f){
-常数数据=等待压缩图像(f)；
-if(数据)draft.images.push(数据)；
+async function handleFiles(files){
+  if (!files || !files.length) return;
+  const remain = 4 - draft.images.length;
+  if (remain <= 0){ toast('最多添加 4 张图片'); return; }
+  const list = [...files].slice(0, remain);
+  toast('处理图片中…');
+  for (const f of list){
+    const data = await compressImage(f);
+    if (data) draft.images.push(data);
   }
-renderDraftImages()；
-updatePublishState()；
+  renderDraftImages();
+  updatePublishState();
 }
 
-/*=========================================================
-发布 / 编辑 / 删除
-=========================================================*/
-函数publish(){
-if(！草稿)返回；
-const content=draft.content.trim()；
-if(！content&&！draft.images.length)返回；
+/* =========================================================
+   发布 / 编辑 / 删除
+   ========================================================= */
+function publish(){
+  if (!draft) return;
+  const content = draft.content.trim();
+  if (!content && !draft.images.length) return;
 
-if(editingId){
-const e=entrys.find(x=>x.id===editingId)；
-if(e){
-object.assign(e，{
-内容，
-mood：草稿.mood，
-天气：吃水.天气，
-标签：draft.tags，
-图像：draft.images，
-updatedAt：新日期().toISOString()，
+  if (editingId){
+    const e = entries.find(x => x.id === editingId);
+    if (e){
+      Object.assign(e, {
+        content,
+        mood: draft.mood,
+        weather: draft.weather,
+        tags: draft.tags,
+        images: draft.images,
+        updatedAt: new Date().toISOString(),
       });
     }
-吐司('已保存修改')；
-}else{
-Const now=新日期().toISOString()；
-entrys.push({
-ID:uid()，
-内容，
+    toast('已保存修改');
+  } else {
+    const now = new Date().toISOString();
+    entries.push({
+      id: uid(),
+      content,
       mood: draft.mood,
       weather: draft.weather,
       tags: draft.tags,
       images: draft.images,
       favorite: false,
       createdAt: now,
-updatedAt:now，
+      updatedAt: now,
     });
-toast('日记已发布 ✨')；
+    toast('日记已发布 ✨');
   }
-节省()；
-closeComposer()；
-提供()；
+  save();
+  closeComposer();
+  render();
 }
 
-/*=========================================================
+/* =========================================================
    事件处理
-=========================================================*/
-document.addEventListener('click'，ev=>{
-Const Actel=ev.target.closest('[data-act]')；
-Const viewEl=ev.target.closest('[data-view]')；
-Const entryEl=ev.target.closest('[data-id]')；
-Const id=entryEl？entryEl.dataset.id：空；
+   ========================================================= */
+document.addEventListener('click', ev => {
+  const actEl = ev.target.closest('[data-act]');
+  const viewEl = ev.target.closest('[data-view]');
+  const entryEl = ev.target.closest('[data-id]');
+  const id = entryEl ? entryEl.dataset.id : null;
 
-if(Actel){
-const act=actEl.dataset.act；
-// 搜索框点击 → 进入搜索视图
-if(act==='goto-search'){setView('search')；return；}
+  if (actEl){
+    const act = actEl.dataset.act;
+    // 搜索框点击 → 进入搜索视图
+    if (act === 'goto-search'){ setView('search'); return; }
 
-开关(动作){
-案例'主题'：
-ui.theme=ui.theme==='深色'？'浅色'：'深色'；
-保存返回；)；渲染()；
-文件.getElementById('ImportFile')。单击()；文件.getElementById('ImportFile')。单击()；
+    switch (act){
+      case 'theme':
+        ui.theme = ui.theme === 'dark' ? 'light' : 'dark';
+        save(); render();
+        return;
 
-大小写'构成'：
-openComposer
-返回；
+      case 'compose':
+        openComposer(null);
+        return;
 
-'构成'
-closeComposer
-返回；
+      case 'close':
+        closeComposer();
+        return;
 
-案例'出版'：
-出版()；
-返回；
+      case 'publish':
+        publish();
+        return;
 
-案例“关闭”：
-'出版'
-renderComposer
-吃水
+      case 'mood':
+        draft.mood = draft.mood === actEl.dataset.mood ? null : actEl.dataset.mood;
+        renderComposer();
+        return;
 
-案例“天气”：
-吃水.天气=吃水。weather===Actel.dataset。天气？null:Actel。数据集。天气；.天气=吃水。weather===Actel.dataset。天气？null:Actel。数据集。天气；
-吃水
-返回；
+      case 'weather':
+        draft.weather = draft.weather === actEl.dataset.weather ? null : actEl.dataset.weather;
+        renderComposer();
+        return;
 
-方案示例'切换面板'：{
-Actel.数据集。天气；
-Const面板
-Const
-'天气'
-常数p
-如果
+      case 'toggle-panel': {
+        const name = actEl.dataset.panel;
+        const panel = document.getElementById('panel-' + name);
+        const isOpen = panel && !panel.hidden;
+        ['mood','weather','tags'].forEach(n => {
+          const p = document.getElementById('panel-' + n);
+          if (p) p.hidden = true;
         });
-p
-如果
-面板
-Actel
-如果
-Const钛
-常数e
+        document.querySelectorAll('.tool').forEach(t => t.classList.remove('active'));
+        if (!isOpen && panel){
+          panel.hidden = false;
+          actEl.classList.add('active');
+          if (name === 'tags'){
+            const ti = document.getElementById('tagInput');
+            if (ti) ti.focus();
           }
         }
-返回；
+        return;
       }
 
-案例“拾取图像”：
-文件.getElementById('FileInput')。单击()；
-返回；
+      case 'pick-image':
+        document.getElementById('fileInput').click();
+        return;
 
-案例'img-del'：{
-Const我=数量(Actel.数据集.我)；
-草案.图片.拼接(i，1)；
-renderDraftImages()；
-updatePublishState()；
-返回；
+      case 'img-del': {
+        const i = Number(actEl.dataset.i);
+        draft.images.splice(i, 1);
+        renderDraftImages();
+        updatePublishState();
+        return;
       }
 
-案例'fav'：{
-常数e=条目.Ind(x=>x.身份标识===身份标识)；
-如果(e){
-e。最喜欢的=！E。收藏；
-节省()；
-renderMain()；
-吐司(e.最喜欢的？'已加入收藏 ❤️'：'已取消收藏')；
+      case 'fav': {
+        const e = entries.find(x => x.id === id);
+        if (e){
+          e.favorite = !e.favorite;
+          save();
+          renderMain();
+          toast(e.favorite ? '已加入收藏 ❤️' : '已取消收藏');
         }
-返回；
+        return;
       }
 
-案例'编辑'：
-openComposer(身份标识)；
-返回；
+      case 'edit':
+        openComposer(id);
+        return;
 
-案例'del'：{
-常数e=条目.Ind(x=>x.身份标识===身份标识)；
-如果
-如果
-条目
-保存
-吐司
-}
-返回；
-      }
-
-案例
-Const
-如果
-textEl
-Actel
-        
-返回；
-      }
-
-案例'标记搜索'：
-返回；
-setView
-返回；
-
-案例'cal-prev'：
-用户界面。calCursor
-renderMain
-返回；
-
-案例'Cal-next'：
-用户界面。calCursor
-renderMain
-返回；
-
-案例“cal-day”：
-用户界面。selectedDay
-renderMain
-返回；
-
-Actel.数据集。一天？无效的：Actel
-exportData
-      
-
-吐司
-案例“导出”：
-        返回;返回;
-
-案例 '全部清除':案例 '全部清除':
-如果 (确认('确定清空全部日记？ 此操作不可恢复！ ')){如果 (确认('确定清空全部日记？ 此操作不可恢复！ ')){
-条目=[];条目=[];
-节省(); 提供();(); 提供();
-吐司('已清空');('已清空');
+      case 'del': {
+        const e = entries.find(x => x.id === id);
+        if (!e) return;
+        if (confirm('确定要删除这篇日记吗？此操作不可恢复。')){
+          entries = entries.filter(x => x.id !== id);
+          save(); render();
+          toast('已删除');
         }
-        返回；返回；
+        return;
+      }
+
+      case 'expand': {
+        const textEl = actEl.parentElement.querySelector('.entry-text');
+        if (textEl){
+          textEl.classList.remove('clamp');
+          actEl.remove();
+        }
+        return;
+      }
+
+      case 'tag-search':
+        ui.query = actEl.dataset.tag || '';
+        setView('search');
+        return;
+
+      case 'cal-prev':
+        ui.calCursor = new Date(ui.calCursor.getFullYear(), ui.calCursor.getMonth() - 1, 1);
+        renderMain();
+        return;
+
+      case 'cal-next':
+        ui.calCursor = new Date(ui.calCursor.getFullYear(), ui.calCursor.getMonth() + 1, 1);
+        renderMain();
+        return;
+
+      case 'cal-day':
+        ui.selectedDay = ui.selectedDay === actEl.dataset.day ? null : actEl.dataset.day;
+        renderMain();
+        return;
+
+      case 'export':
+        exportData();
+        return;
+
+      case 'import':
+        document.getElementById('importFile').click();
+        return;
+
+      case 'clear-all':
+        if (confirm('确定清空全部日记？此操作不可恢复！')){
+          entries = [];
+          save(); render();
+          toast('已清空');
+        }
+        return;
     }
   }
 
-如果(观点埃尔&&！Actel){如果(观点埃尔&&！Actel){
-setView(viewEl.数据集.观点)；(viewEl.数据集.观点)；
+  if (viewEl && !actEl){
+    setView(viewEl.dataset.view);
   }
 });
 
 /* 搜索输入实时过滤 */
-文件.addEventListener('输入'，电动汽车=>{.addEventListener('输入'，电动汽车=>{
-如果(电动汽车.目标.身份标识==='SearchInput'){如果(电动汽车.目标.身份标识==='SearchInput'){
-用户界面.查询=电动汽车.目标.价值;用户界面.查询=电动汽车.目标.价值;
-Const盒=文件.getElementById('SearchResults')；常数盒=文件.getElementById('SearchResults')；
-如果(盒子)盒子.innerHTML=searchResultsHTML()；如果(盒子)盒子.innerHTML=searchResultsHTML()；
+document.addEventListener('input', ev => {
+  if (ev.target.id === 'searchInput'){
+    ui.query = ev.target.value;
+    const box = document.getElementById('searchResults');
+    if (box) box.innerHTML = searchResultsHTML();
   }
 });
 
 /* 点击遮罩关闭弹窗 */
-文件.getElementById('modalRoot').AddEventListener('mousedown'，电动汽车=>{.getElementById('modalRoot').AddEventListener('mousedown'，电动汽车=>{
-如果(电动汽车.目标.身份标识==='modalRoot')关闭作曲家()；如果(电动汽车.目标.身份标识==='modalRoot')关闭作曲家()；
+document.getElementById('modalRoot').addEventListener('mousedown', ev => {
+  if (ev.target.id === 'modalRoot') closeComposer();
 });
 
-/*ESC关闭*/
-文件.addEventListener('按下键'，电动汽车=>{.AddEventListener('按下键'，电动汽车=>{
-如果(电动汽车.钥匙==='转义'&&！文件.getElementById('modalRoot')。隐藏的)closeComposer()；如果(电动汽车.钥匙==='转义'&&！文件.getElementById('modalRoot')。隐藏的)closeComposer()；
+/* ESC 关闭 */
+document.addEventListener('keydown', ev => {
+  if (ev.key === 'Escape' && !document.getElementById('modalRoot').hidden) closeComposer();
 });
 
 /* 导入文件 */
-文件.addEventListener('更改'，电动汽车=>{.AddEventListener('更改'，电动汽车=>{
-如果(电动汽车.目标.身份标识！=='ImportFile')返回；如果(电动汽车.目标.身份标识！=='ImportFile')返回；
-Const文件=电动汽车.目标.文件[0]；Const文件=电动汽车.目标.文件[0]；
-如果 (! 文件) 返回;如果 (! 文件) 返回;
-Const读者=新的FileReader()；Const读者=新的FileReader()；
-读者.onload=()=>{读者.onload=()=>{
-尝试{尝试{
-Const数据=JSON。解析(读者.结果)；Const数据=JSON。解析(读者.结果)；
-Const列表=数组.isArray(数据)？数据：数据.条目；Const列表=数组.isArray(数据)？数据：数据.条目；
-如果(！数组.isArray(列表))扔新的误差('格式错误')；如果(！数组.isArray(列表))扔新的误差('格式错误')；
-Const有效的=列表.过滤器(x=>x&&x.身份标识&&x.createdAt)；常数有效的=列表.过滤器(x=>x&&x.身份标识&&x.createdAt)；
-      如果 (!有效的.长度) 扔新的误差('没有有效数据');如果 (!有效的.长度) 扔新的误差('没有有效数据');
-      如果 (确认(`导入 ${有效的.长度}篇日记？ 现有数据将被合并。`)){如果 (确认(`导入 ${有效的.长度}篇日记？ 现有数据将被合并。`)){
-ConstIDs=新的设置(条目.地图(e=>e.身份标识))；ConstIDs=新的设置(条目.地图(e=>e.身份标识))；
-有效的.foreach(e=>{如果(！我DS.有(e.身份标识))条目.推(e)；})；有效的.foreach(e=>{如果(！我DS.有(e.身份标识))条目.推(e)；})；
-节省(); 提供();(); 提供();
-吐司(`已导入 ${有效的.长度}篇`);(`已导入 ${有效的.长度}篇`);
+document.addEventListener('change', ev => {
+  if (ev.target.id !== 'importFile') return;
+  const file = ev.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const data = JSON.parse(reader.result);
+      const list = Array.isArray(data) ? data : data.entries;
+      if (!Array.isArray(list)) throw new Error('格式错误');
+      const valid = list.filter(x => x && x.id && x.createdAt);
+      if (!valid.length) throw new Error('没有有效数据');
+      if (confirm(`导入 ${valid.length} 篇日记？现有数据将被合并。`)){
+        const ids = new Set(entries.map(e => e.id));
+        valid.forEach(e => { if (!ids.has(e.id)) entries.push(e); });
+        save(); render();
+        toast(`已导入 ${valid.length} 篇`);
       }
-}赶上(犯错){}赶上(犯错){
-<！doctype超文本标记语言>/超文本标记语言>/超文本标记语言>吐司('导入失败：文件格式不正确');！doctype超文本标记语言>/超文本标记语言>/超文本标记语言>吐司('导入失败：文件格式不正确');
+    }catch(err){
+      toast('导入失败：文件格式不正确');
     }
-电动汽车.目标.价值='';电动汽车.目标.价值='';
+    ev.target.value = '';
   };
-读者.readAsText(文件)；读者.readAsText(文件)；
+  reader.readAsText(file);
 });
 
-=========================================================*/
-/*=========================================================
-=========================================================*/
-函数exportData超文本标记语言>(){exportData(){>(){exportData(){
-Const数据=J儿子.使字符串化({版本：1，exportedAt：新的日期().toISOString()，条目}，无效的，2)；Const数据=J儿子.使字符串化({版本：1，exportedAt：新的日期().toISOString()，条目}，无效的，2)；
-Const斑点=新的斑点([数据]，{类型：'应用程序/约翰逊})；Const斑点=新的斑点([数据]，{类型：'应用程序/约翰逊})；
-ConstURL=URL。createObjectURL(斑点)；ConstURL=URL.createObjectURL(斑点)；
-Const一个=文件.createElement('A')；Const一个=文件.createElement('A')；
-一个.href=URL；一个.href=URL；.href=URL；一个.href=URL；
-一个.下载='日记备份-${dateKey(新的日期()}.json'；一个.下载='日记备份-${dateKey(新的日期()}.json'；.下载='日记备份-${dateKey(新的日期()}.json'；一个.下载='日记备份-${dateKey(新的日期()}.json'；
-一个.点击();一个.点击();.点击();一个.点击();
-URL。revokeObjectURL(URL)；URL。revokeObjectURL(URL)；。revokeObjectURL(URL)；URL。revokeObjectURL(URL)；
-吐司('备份已导出');吐司('备份已导出');('备份已导出');吐司('备份已导出');
+/* =========================================================
+   数据导入导出
+   ========================================================= */
+function exportData(){
+  const data = JSON.stringify({ version: 1, exportedAt: new Date().toISOString(), entries }, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `diary-backup-${dateKey(new Date())}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('备份已导出');
 }
 
-=========================================================*/
-=========================================================*/
-/*=========================================================
-功能setView(v){setView(v){(v){setView(v){
-  用户界面.观点=v;用户界面.观点=v;用户界面.观点=v;用户界面.观点=v;
-如果
-如果
-</超文本标记超文本标记
+/* =========================================================
+   视图切换
+   ========================================================= */
+function setView(v){
+  ui.view = v;
+  if (v !== 'search') ui.query = '';
+  if (v === 'calendar') ui.calCursor = new Date();
+  render();
 }
 
-案例“导出”：
-=========================================================*/
-/*=========================================================
-功能init
-负载
-文件
-提供
+/* =========================================================
+   启动
+   ========================================================= */
+function init(){
+  load();
+  document.documentElement.dataset.theme = ui.theme;
+  render();
 
-//
-如果
-setTimeout
-      吐司吐司
+  // 首次使用引导
+  if (!entries.length){
+    setTimeout(() => {
+      toast('点击「写日记」开始记录 ✍️');
+    }, 600);
+  }
 }
-  
-}
-init
-</剧
-</
-</
+init();
+</script>
+</body>
+</html>
